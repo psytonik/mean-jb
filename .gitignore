@@ -1,8 +1,10 @@
 /node_modules
+node_modules
 /.idea
+.idea
 .env
 /client/node_modules
-
+client/node_modules
 # System Files
 .DS_Store
 Thumbs.db
