@@ -10,4 +10,11 @@ const getOrders = async (req,res)=>{
         console.error(err)
     }
 }
+const createOrder = async (req,res) => {
+    try{
+
+    } catch (err) {
+        console.error(err);
+    }
+}
 module.exports = {getOrders}
