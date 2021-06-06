@@ -1,7 +1,7 @@
-const mongoose = require('mongoose');
+const {Schema,model} = require('mongoose');
 
-const OrdersSchema = new mongoose.Schema({
-    orderItems:[{type:mongoose.Schema.Types.ObjectId, ref:'OrderItems', required:true}],
+const OrdersSchema = new Schema({
+    orderItems:[{type:Schema.Types.ObjectId, ref:'OrderItems', required:true}],
     status: {type:String,required:true, default: 'Pending'},
     shippingAddress1: {type:String,required:true},
     shippingAddress2: {type:String},
@@ -10,7 +10,7 @@ const OrdersSchema = new mongoose.Schema({
     country:{type:String,required:true},
     phone:{type:String,required:true},
     totalPrice: {type:Number},
-    user:{type:mongoose.Schema.Types.ObjectId, ref:'User', required:true},
+    user:{type:Schema.Types.ObjectId, ref:'User', required:true},
     dateOrdered: {type:Date,default: Date.now()}
 })
 
@@ -21,4 +21,4 @@ OrdersSchema.set('toJSON',{
     virtuals: true
 })
 
-exports.Order = mongoose.model('Order',OrdersSchema);
+exports.Order = model('Order',OrdersSchema);

@@ -12,5 +12,5 @@ OrderItemsSchema.set('toJSON',{
     virtuals: true
 })
 
-exports.OrderItem = mongoose.model('OrderItems',OrderItemsSchema);
+exports.OrderItems = mongoose.model('OrderItems',OrderItemsSchema);
 
