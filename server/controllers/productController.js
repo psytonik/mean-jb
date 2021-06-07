@@ -79,7 +79,7 @@ const updateProduct = async (req,res) => {
             return res.status(400).send('Invalid Category');
         }
 
-        const product = await Product.findOneAndUpdate(
+        const product = await Product.findByIdAndUpdate(
             req.params.id,
             {image,images,brand,
                 price,description,richDescription,

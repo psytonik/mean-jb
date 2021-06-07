@@ -60,7 +60,7 @@ const updateCategory = async (req,res) => {
         const {name,icon,color} = req.body;
         let slug = slugify(req.body.name,{replacement: '-',lower: true,});
 
-        const updatedCategory = await Category.findOneAndUpdate(
+        const updatedCategory = await Category.findByIdAndUpdate(
             req.params.id,
             {name, icon, color, slug},
             {new:true}
