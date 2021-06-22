@@ -1,0 +1,16 @@
+// global style / Base
+@import "global-style";
+
+// apps/shop/ Pages
+@import "./apps/shop/pages/home-page.scss";
+@import "./apps/shop/pages/product-list.scss";
+
+// apps/shop/ Shared
+@import "./apps/shop/shared/header.scss";
+@import "./apps/shop/shared/footer.scss";
+
+// libs/ui
+@import "./libs/ui/banner.scss";
+@import "./libs/ui/slider.scss";
+@import "./libs/ui/stepper.scss";
+@import "./libs/users/users";

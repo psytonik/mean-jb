@@ -3,10 +3,12 @@ node_modules
 /.idea
 .idea
 .env
-/client/node_modules
-client/node_modules
-client/.idea
-/client/.idea
+/psytonik-dev/node_modules
+psytonik-dev/node_modules
+/psytonik-dev/.vscode
+psytonik-dev/.vscode
+/psytonik-dev/.gitignore
+psytonik-dev/.gitignore
 
 # System Files
 .DS_Store

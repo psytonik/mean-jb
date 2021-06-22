@@ -2,9 +2,8 @@ const mongoose = require('mongoose');
 
 const CategoriesSchema = new mongoose.Schema({
     name: {type:String, required:true},
-    color: {type:String},
-    icon: {type:String},
-    slug: {type:String, required:true},
+    color:{type:String, default: "#54f"},
+    icon: {type:String, default: "icon"},
     // image: {type:String, required:true}
 })
 

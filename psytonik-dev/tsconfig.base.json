@@ -1,0 +1,26 @@
+{
+  "compileOnSave": false,
+  "compilerOptions": {
+    "rootDir": ".",
+    "sourceMap": true,
+    "declaration": false,
+    "moduleResolution": "node",
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "importHelpers": true,
+    "target": "es2015",
+    "module": "esnext",
+    "lib": ["es2017", "dom"],
+    "skipLibCheck": true,
+    "skipDefaultLibCheck": true,
+    "baseUrl": ".",
+    "paths": {
+      "@psytonik-dev/ui": ["libs/ui/src/index.ts"],
+      "@psytonik-dev/products": ["libs/products/src/index.ts"],
+      "@psytonik-dev/users": ["libs/users/src/index.ts"],
+      "@psytonik-dev/orders": ["libs/orders/src/index.ts"],
+      "@env/*": ["environments/*"]
+    }
+  },
+  "exclude": ["node_modules", "tmp"]
+}

@@ -1,7 +1,6 @@
 const {Product} = require("../models/ProductsSchema");
 const {Category} = require("../models/CategoriesSchema");
-const slugify = require('slugify');
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 
 const getProducts = async (req,res) => {
     try {
@@ -11,7 +10,7 @@ const getProducts = async (req,res) => {
         }
         const productList = await Product.find(filter)
             .populate('category');
-            // .select('name description price image slug -_id');
+            // .select('name description price image -_id');
         if(productList){
             return res.status(200).json(productList);
         }
@@ -36,26 +35,29 @@ const getProductById = async (req,res) => {
 
 const addNewProduct = async (req,res) => {
     try {
-        let slug = slugify(req.body.name,{replacement: '-',lower: true,});
-        const category = await Category.findById(req.body.category);
-        if(!category){
-            return res.status(400).send('Invalid Category');
-        }
-        const {
-            image,images,brand,
-            price,description,richDescription,
-            countInStock,rating,
-            numReviews,isFeatured,name} = req.body;
+            const file = req.file.filename;
+            if(!file) return res.status(400).send("Something went wrong!");
 
-        let newProduct = await Product({image,images,brand,
-            price,description,richDescription,
-            category,countInStock,rating,
-            numReviews,isFeatured,slug,name});
+            const basePath = `${req.protocol}://${req.get('host')}/public/uploads/`;
+
+            const category = await Category.findById(req.body.category);
+            if(!category) return res.status(400).send('Invalid Category');
+
+        let newProduct = await Product({
+            image:`${basePath}${file}`,
+            brand:req.body.brand,
+            price:req.body.price,
+            description:req.body.description,
+            richDescription:req.body.richDescription,
+            category:req.body.category,
+            countInStock:req.body.countInStock,
+            rating:req.body.rating,
+            numReviews:req.body.numReviews,
+            isFeatured:req.body.name.isFeatured,
+            name:req.body.name});
         newProduct = await newProduct.save();
 
-        if(!newProduct){
-            return res.status(500).json({message:'The product cannot be added',success:false});
-        }
+        if(!newProduct) return res.status(500).json({message:'The product cannot be added',success:false});
 
         return res.status(201).json(newProduct);
     }catch (err) {
@@ -65,32 +67,47 @@ const addNewProduct = async (req,res) => {
 };
 
 const updateProduct = async (req,res) => {
-
-    const {image,images,brand,
-        price,description,richDescription,
-        countInStock,rating,
-        numReviews,isFeatured,name} = req.body;
-
     try{
-        let slug = slugify(req.body.name,{replacement: '-',lower: true,});
+        if (!mongoose.isValidObjectId(req.params.id)) return res.status(400).send('Invalid Product Id');
 
         const category = await Category.findById(req.body.category);
-        if(!category){
-            return res.status(400).send('Invalid Category');
+
+        if(!category) return res.status(400).send('Invalid Category');
+
+        const product = await Product.findById(req.params.id);
+
+        if(!product) return res.status(400).send('Invalid Product!');
+
+        const file = req.file;
+        let imagePath;
+
+        if(file){
+            const fileName = file.filename;
+            const basePath = `${req.protocol}://${req.get('host')}/public/uploads/`;
+            imagePath = `${basePath}${fileName}`;
+        } else {
+            imagePath = product.image;
         }
 
-        const product = await Product.findByIdAndUpdate(
+        const updatedProduct = await Product.findByIdAndUpdate(
             req.params.id,
-            {image,images,brand,
-                price,description,richDescription,
-                countInStock,rating,
-                numReviews,isFeatured,name,slug,category},
+            {   image:imagePath,
+                brand: req.body.brand,
+                price: req.body.price,
+                description: req.body.description,
+                richDescription: req.body.richDescription,
+                countInStock: req.body.countInStock,
+                rating: req.body.rating,
+                numReviews: req.body.numReviews,
+                isFeatured: req.body.isFeatured,
+                name: req.body.name,
+                category: req.body.category,
+            },
             {new:true}
         );
-        if(!product){
-            return res.status(404).json({message: 'Product not updated'});
-        }
-        return res.status(200).json(product);
+        if(!updatedProduct) return res.status(404).json({message: 'Product not updated'});
+
+        return res.status(200).json(updatedProduct);
     }catch (err) {
         console.error(err.message, 'ERROR');
         return res.status(400).json({message: 'Update product failed', error: err.message});
@@ -111,6 +128,37 @@ const deleteProduct = async (req,res) => {
         return res.status(400).json({message: 'Product can\'t be Removed', error: err.message});
     }
 };
+
+const uploadMultipleImages = async (req,res) => {
+    try{
+        if(!mongoose.isValidObjectId(req.params.id)) return res.status(400).send('Invalid Product Id');
+
+        const files = req.files;
+        let imagesPaths = [];
+        const basePath = `${req.protocol}://${req.get('host')}/public/uploads/`;
+
+        if (files) {
+            files.map((file) => {
+                imagesPaths.push(`${basePath}${file.filename}`);
+            });
+        }
+        console.log('files',imagesPaths)
+        const product = await Product.findByIdAndUpdate(
+          req.params.id,
+          {
+              images: imagesPaths
+          },
+          { new: true }
+        );
+        console.log(req.params.id);
+        if (!product) return res.status(500).send('the gallery cannot be updated!');
+
+        return res.status(201).json(product);
+    } catch (err) {
+        console.error(err.message, 'ERROR');
+        return res.status(400).json({message: 'Update images failed', error: err.message});
+}
+    }
 
 const getCountOfProducts = async (req,res) => {
     try{
@@ -150,5 +198,6 @@ module.exports = {
     getProducts,
     getProductById,
     getCountOfProducts,
-    getFeaturedProducts
+    getFeaturedProducts,
+    uploadMultipleImages
 };

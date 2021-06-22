@@ -1,10 +1,11 @@
 const express = require('express');
-const app = express();
+const helmet = require('helmet');
 require('dotenv/config');
 const morgan = require('morgan');
 const cors = require('cors');
 const authJwtMiddleware = require('./server/middleware/jwt.js');
 const jwtErrorHandler = require('./server/middleware/jwtErrorHandler.js');
+const app = express();
 
 /// CROSS-ORIGIN
 app.use(cors());
@@ -25,7 +26,9 @@ const categoriesRoutes = require('./server/routes/categoriesRoutes')
 app.use(express.json());
 app.use(morgan('tiny'));
 app.use(authJwtMiddleware());
+app.use("/public/uploads", express.static(`${__dirname}/public/uploads`));
 app.use(jwtErrorHandler);
+app.use(helmet());
 
 
 /// ROUTES

@@ -1,0 +1,106 @@
+<p-toast></p-toast>
+<div class='admin-page'>
+  <p-card styleClass="p-shadow-6" [header]="editMode ? 'Edit Product':'Add Product' " subheader='There you can add or edit the products'>
+    <div class='p-grid p-mb-5'>
+      <div class='p-col-12'>
+        <p-toolbar>
+          <div class="p-toolbar-group-left"></div>
+          <div class="p-toolbar-group-right">
+
+            <p-button
+              [label]="editMode ?'Update': 'Create' "
+              icon="pi pi-plus"
+              styleClass="p-button-primary p-mr-2"
+              [disabled]="form.invalid || submitted"
+              (click)="onSubmit()"></p-button>
+
+            <p-button label="Cancel" icon="pi pi-arrow-circle-left" styleClass="p-button-secondary" (click)='onCancel()'></p-button>
+
+          </div>
+        </p-toolbar>
+      </div>
+    </div>
+
+    <div class='p-grid'>
+      <div class='p-col-12'>
+        <form [formGroup]='form'>
+          <div class="p-fluid p-formgrid p-grid">
+
+            <div class="p-field p-col">
+                <label for="name">Name</label>
+                <input id="name" type="text" pInputText formControlName="name">
+                  <small *ngIf='productForm.name.invalid && productForm.name.touched' class='p-error'>Name is Required</small>
+            </div>
+
+            <div class="p-field p-col">
+                <label for="brand">Brand</label>
+                <input id="brand" name='brand' type="text" pInputText formControlName="brand">
+                <small *ngIf='productForm.brand.invalid && productForm.brand.touched' class='p-error'>Brand is Required</small>
+            </div>
+
+            <div class="p-field p-col">
+                <label>Price</label>
+                <p-inputNumber mode="currency" currency="USD" locale="en-US" formControlName="price"></p-inputNumber>
+                <small *ngIf='productForm.price.invalid && productForm.price.touched' class='p-error'>Price is Required</small>
+            </div>
+
+          </div>
+
+          <div class="p-fluid p-formgrid p-grid">
+
+            <div class="p-field p-col-4">
+                <label>Stock</label>
+                <p-inputNumber formControlName="countInStock" inputId="countInStock" mode='decimal' [useGrouping]="false"></p-inputNumber>
+                  <small *ngIf='productForm.countInStock.invalid && productForm.countInStock.touched' class='p-error'>Stock is Required</small>
+            </div>
+
+            <div class="p-field p-col-4">
+              <label>Category</label>
+              <p-dropdown
+                [options]="categories"
+                formControlName="category"
+                [filter]='true'
+                optionLabel='name'
+                filterBy="name"
+                [showClear]="true"
+                placeholder="Select a Category"
+                optionValue='id'
+              ></p-dropdown>
+              <small *ngIf='productForm.category.invalid && productForm.category.touched' class='p-error'>Category is Required</small>
+            </div>
+
+            <div class="p-field p-col-4">
+                <label>Is Featured</label><br>
+                <p-inputSwitch name='isFeatured' id='isFeatured' formControlName="isFeatured"></p-inputSwitch>
+            </div>
+
+            <div class="p-field p-col-12">
+                <label>Short Description</label><br>
+                <textarea pInputTextarea [rows]="7" [cols]='30' name='description' formControlName="description"></textarea>
+                <small *ngIf='productForm.description.invalid && productForm.description.touched' class='p-error'>Description is Required</small>
+            </div>
+
+            <div class="p-field p-col-12">
+                <label>Rich Description</label><br>
+                <p-editor formControlName="richDescription" [style]="{'height':'320px'}"></p-editor>
+            </div>
+
+            <div class="p-field p-col-12">
+              <label>Main Image</label>
+              <input
+                type='file'
+                class='p-inputtext'
+                accept='image/*'
+                (change)='onImageUpload($event)'>
+              <small *ngIf='productForm.image.invalid && productForm.image.touched' class='p-error'>Image is Required</small>
+              <div class='p-col-2 p-mt-2 p-pl-0'>
+                <img [src]='imageDisplay' style='width: 100%' alt="">
+              </div>
+            </div>
+
+          </div>
+        </form>
+      </div>
+    </div>
+  </p-card>
+</div>

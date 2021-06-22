@@ -1,0 +1,52 @@
+{
+  "implicitDependencies": {
+    "package.json": {
+      "dependencies": "*",
+      "devDependencies": "*"
+    },
+    ".eslintrc.json": "*"
+  },
+  "affected": {
+    "defaultBase": "master"
+  },
+  "npmScope": "psytonik-dev",
+  "tasksRunnerOptions": {
+    "default": {
+      "runner": "@nrwl/nx-cloud",
+      "options": {
+        "cacheableOperations": ["build", "lint", "test", "e2e"],
+        "accessToken": "NzE4OGUxNDgtZTMxNS00ZGE1LTliOTItOTZhNjQxNGNkODhlfHJlYWQtd3JpdGU=",
+        "canTrackAnalytics": false,
+        "showUsageWarnings": true
+      }
+    }
+  },
+  "projects": {
+    "angular-shop": {
+      "tags": []
+    },
+    "angular-shop-e2e": {
+      "tags": [],
+      "implicitDependencies": ["angular-shop"]
+    },
+    "admin-shop": {
+      "tags": []
+    },
+    "admin-shop-e2e": {
+      "tags": [],
+      "implicitDependencies": ["admin-shop"]
+    },
+    "ui": {
+      "tags": []
+    },
+    "products": {
+      "tags": []
+    },
+    "users": {
+      "tags": []
+    },
+    "orders": {
+      "tags": []
+    }
+  }
+}

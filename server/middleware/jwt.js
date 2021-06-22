@@ -20,8 +20,13 @@ const authJwtMiddleware = () => {
 		path:[
 			`${api}/users/login`,
 			`${api}/users`,
-			{url: /\api\/v1\/products(.*)/, methods:['GET','OPTIONS']},
-			{url: /\api\/v1\/category(.*)/, methods:['GET','OPTIONS']},
+			{url: /\/public\/uploads(.*)/, methods:['GET','OPTIONS']},
+			{url: /\/api\/v1\/products(.*)/, methods:['GET','OPTIONS']},
+			{url: /\/api\/v1\/category(.*)/, methods:['GET','OPTIONS']},
+			{url: /\/api\/v1\/orders(.*)/, methods:['GET','OPTIONS','POST']},
+
+			// this line allow use all api routes without auth for developing purpose only;
+			// {url:/(.*)/}
 		]
 	})
 

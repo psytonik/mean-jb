@@ -1,7 +1,5 @@
 const {Category} = require("../models/CategoriesSchema");
 
-const slugify = require('slugify');
-
 const getCategories = async (req,res)=>{
     try {
         const categories = await Category.find();
@@ -16,10 +14,10 @@ const getCategories = async (req,res)=>{
 
 const createCategory = async (req,res) => {
     try{
-        let slug = slugify(req.body.name,{replacement: '-',lower: true,});
+
         const {name,icon,color} = req.body;
-        let newCategory = await new Category({name, icon, color, slug});
-        newCategory = await newCategory.save();
+        let newCategory = await new Category({name, icon, color});
+        await newCategory.save();
         if(!newCategory){
             return res.status(404).json({message:'The category cannot be created',success:false});
         }
@@ -58,11 +56,10 @@ const getCategory = async (req,res) => {
 const updateCategory = async (req,res) => {
     try{
         const {name,icon,color} = req.body;
-        let slug = slugify(req.body.name,{replacement: '-',lower: true,});
 
         const updatedCategory = await Category.findByIdAndUpdate(
             req.params.id,
-            {name, icon, color, slug},
+            {name, icon, color},
             {new:true}
         );
         if(!updatedCategory){

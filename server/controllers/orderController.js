@@ -4,7 +4,7 @@ const {OrderItems} = require("../models/OrderItemsSchema");
 const getOrders = async (req,res)=>{
     try {
         const orders = await Order.find()
-            .populate('user','name')
+            .populate('user','name email')
             .sort({'dateOrdered': -1});
         if(orders){
             res.status(200).json(orders);
@@ -38,8 +38,8 @@ const createOrder = async (req,res) => {
                 product:orderItem.product
             });
 
-            const newOrderI = await newOrderItem.save();
-            return await newOrderI._id;
+            newOrderItem = await newOrderItem.save();
+            return await newOrderItem._id;
 
         }));
         let orderItemsIdsResolved = await orderItemsIds;

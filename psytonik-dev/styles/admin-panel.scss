@@ -1,0 +1,8 @@
+@import "global-style.scss";
+
+@import "./apps/admin/dashboard/dashboard.scss";
+// apps/admin/shared/shell
+@import "./apps/admin/shared/shell/shell.scss";
+
+// libs
+@import "./libs/users/users.scss";

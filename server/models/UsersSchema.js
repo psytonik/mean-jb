@@ -8,7 +8,7 @@ const UsersSchema = new mongoose.Schema({
     apartment:{type:String,required:true, default: ''},
     city:{type:String,required:true, default: ''},
     zip:{type:String,required:true, default: ''},
-    country:{type:String,required:true, default: ''},
+    country:{type:String, default: ''},
     phone:{type:String,required:true, default: ''},
     isAdmin: {type:Boolean,default: false},
 })
