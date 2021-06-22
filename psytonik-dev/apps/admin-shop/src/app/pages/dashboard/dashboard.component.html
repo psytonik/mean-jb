@@ -1,0 +1,61 @@
+<div class="admin-page">
+  <p-card styleClass="p-shadow-6" header='Dashboard' subheader="Latest Updates">
+    <div class="p-grid">
+
+      <div class="p-col-3">
+        <p-card styleClass="d-orders p-shadow-3">
+          <div class="d-item">
+            <div>
+              <i class="pi pi-shopping-cart"></i><br/>
+              <span class="name">Orders</span>
+            </div>
+              <span class="number">{{orders}}</span>
+          </div>
+        </p-card>
+      </div>
+
+      <div class="p-col-3">
+        <p-card styleClass="d-products p-shadow-3">
+          <div class="d-item">
+            <div>
+              <i class="pi pi-briefcase"></i><br/>
+              <span class="name">Products</span>
+            </div>
+            <span class="number">{{products}}</span>
+          </div>
+        </p-card>
+      </div>
+
+      <div class="p-col-3">
+        <p-card styleClass="d-users p-shadow-3">
+          <div class="d-item">
+            <div>
+              <i class="pi pi-users"></i><br/>
+              <span class="name">Clients</span>
+            </div>
+            <span class="number">{{users}}</span>
+          </div>
+        </p-card>
+      </div>
+
+      <div class="p-col-3">
+        <p-card styleClass="d-sales p-shadow-3">
+          <div class="d-item">
+            <div>
+              <i class="pi pi-dollar"></i><br/>
+              <span class="name">Total Sales</span>
+            </div>
+            <span class="number">{{sales |currency}}</span>
+          </div>
+        </p-card>
+      </div>
+
+    </div>
+
+    <div class="p-grid">
+      <div class="p-col">
+        <p-chart type="doughnut" [data]="data"></p-chart>
+      </div>
+    </div>
+  </p-card>
+</div>
