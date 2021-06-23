@@ -4,9 +4,11 @@ import { BannerComponent } from './banner/banner.component';
 import { SliderComponent } from './slider/slider.component';
 import { StepperComponent } from './stepper/stepper.component';
 
+import {ButtonModule} from 'primeng/button';
+
 
 @NgModule({
-  imports: [CommonModule],
+  imports: [CommonModule,ButtonModule],
   declarations: [
     BannerComponent,
     SliderComponent,

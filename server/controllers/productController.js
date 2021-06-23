@@ -183,7 +183,7 @@ const getFeaturedProducts = async (req,res) => {
                 return res.status(400).json({message: 'Can\'t find featured products'});
             }
 
-            return res.status(200).json({featuredProducts});
+            return res.status(200).json(featuredProducts);
         } catch (err) {
             console.error(err.message, 'ERROR => getFeaturedProducts');
             return res.status(400).json({message: 'Can\'t get count of product', error: err.message});

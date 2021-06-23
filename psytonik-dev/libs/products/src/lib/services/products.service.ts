@@ -32,4 +32,7 @@ export class ProductsService {
   getTotalProducts():Observable<any>{
     return this.httpClient.get<any>(`${environment.apiURL}/products/get/count`)
   }
+  getFeaturedProducts(count:number):Observable<Product[]>{
+    return this.httpClient.get<Product[]>(`${environment.apiURL}/products/get/featured/${count}`)
+  }
 }

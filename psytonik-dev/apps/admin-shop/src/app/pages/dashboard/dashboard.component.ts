@@ -57,7 +57,9 @@ export class DashboardComponent implements OnInit, OnDestroy {
 
   private _getTotalProducts() {
     this.productsSub = this.productService.getTotalProducts()
-      .subscribe(data=> this.products =data.productCount)
+      .subscribe(data=> {
+        this.products = data.productCount
+      })
   }
 
   private _getTotalOrders() {
