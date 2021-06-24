@@ -4,21 +4,47 @@ import { SearchbarComponent } from './components/products/searchbar/searchbar.co
 import { CategoriesBannerComponent } from './components/products/categories-banner/categories-banner.component';
 import { OrdersModule } from '@psytonik-dev/orders'
 import { HttpClientModule } from '@angular/common/http';
-import { RouterModule } from '@angular/router';
+import { RouterModule, Routes } from '@angular/router';
 import { ProductItemComponent } from './components/products/product-item/product-item.component';
+import { ProductsListComponent } from './components/products/products-list/products-list.component';
 import { FeaturedProductComponent } from './components/products/featured-product/featured-product.component';
 import {ButtonModule} from 'primeng/button';
-import { ProductsListComponent } from './components/products/products-list/products-list.component';
+import {CheckboxModule} from 'primeng/checkbox';
+import { FormsModule } from '@angular/forms';
+import { ProductDetailsComponent } from './components/products/product-details/product-details.component';
+
+const routes:Routes = [
+  {path:'products', component:ProductsListComponent},
+  {path: 'category/:categoryId',component: ProductsListComponent},
+  {path: 'products/:id',component: ProductDetailsComponent}
+];
 
 @NgModule({
-  imports: [CommonModule,OrdersModule,HttpClientModule,RouterModule,ButtonModule],
+  imports: [
+    CommonModule,
+    OrdersModule,
+    HttpClientModule,
+    RouterModule.forChild(routes),
+    ButtonModule,
+    CheckboxModule,
+    FormsModule
+  ],
   declarations: [
     SearchbarComponent,
     CategoriesBannerComponent,
     ProductItemComponent,
     FeaturedProductComponent,
-    ProductsListComponent
+    ProductsListComponent,
+    ProductDetailsComponent
   ],
-  exports:[SearchbarComponent,CategoriesBannerComponent,ProductItemComponent,FeaturedProductComponent,ProductsListComponent]
+  exports:[
+    SearchbarComponent,
+    CategoriesBannerComponent,
+    ProductItemComponent,
+    FeaturedProductComponent,
+    ProductsListComponent,
+    ProductDetailsComponent
+  ]
+
 })
 export class ProductsModule {}

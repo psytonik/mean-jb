@@ -3,7 +3,7 @@
   <div class="p-grid">
 
     <div class="p-col-2" *ngFor="let category of categories">
-      <div class="category" [routerLink]=" '/products/category/'+ category.id " [ngStyle]="{backgroundColor:category.color}">
+      <div class="category" [routerLink]=" '/category/'+ category.id " [ngStyle]="{backgroundColor:category.color}">
         <div class="category-icon"><i class="pi {{category.icon}}"></i></div>
         <div class="category-name">{{category.name}}</div>
       </div>
