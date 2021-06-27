@@ -23,7 +23,7 @@ const FILE_TYPE_MAP = {
         'image/jpeg': 'jpeg',
         'image/jpg': 'jpg',
         'image/gif':'gif'
-}
+};
 
 const storage = multer.diskStorage({
         destination: function (req, file, cb) {

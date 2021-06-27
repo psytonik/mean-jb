@@ -1,5 +1,6 @@
 const express = require('express');
-const {createNewUser, getUsers,getUserById,updateUser,loginUser,getCountOfUsers,deleteUser} = require("../controllers/userController");
+const {createNewUser, getUsers,getUserById,updateUser,
+	loginUser,getCountOfUsers,deleteUser} = require("../controllers/userController");
 
 const router = express.Router();
 
@@ -10,13 +11,13 @@ router.route('/')
 router.route('/:id')
     .get(getUserById)
     .put(updateUser)
-	.delete(deleteUser)
+	.delete(deleteUser);
 
 
 router.route('/login')
     .post(loginUser);
 
 router.route('/get/users-count')
-	.get(getCountOfUsers)
+	.get(getCountOfUsers);
 
 module.exports = router;

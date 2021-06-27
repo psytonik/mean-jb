@@ -20,7 +20,7 @@ const getOrderDetails = async (req,res)=>{
             .populate('user', 'name email')
             .populate({path:'orderItems',
                 populate:{path:'product',
-                    populate:{path:'category'}}})
+                    populate:{path:'category'}}});
 
         if(orderDetails){
             res.status(200).json(orderDetails);
@@ -62,7 +62,7 @@ const createOrder = async (req,res) => {
             totalPrice:totalPrice,
             user: req.body.user,
             status: req.body.status
-        })
+        });
         order = await order.save();
 
         if(!order){
@@ -73,7 +73,7 @@ const createOrder = async (req,res) => {
     } catch (err) {
         console.error('ERROR', err.message);
     }
-}
+};
 
 const updateOrderStatus = async (req,res) => {
     try{
@@ -122,7 +122,7 @@ const getSalesStatistic = async (req,res) => {
     try{
         const totalSales = await Order.aggregate([
             {$group:{ _id: null, totalSales:{$sum : '$totalPrice'}}}
-        ])
+        ]);
         if(!totalSales){
             return res.status(404).json({success:false,message:'No sales'})
         }
@@ -135,7 +135,7 @@ const getSalesStatistic = async (req,res) => {
             message: 'Internal Server Error',
         });
     }
-}
+};
 
 const getCountOfOrders = async (req,res) => {
     try{
@@ -166,4 +166,5 @@ const getUserOrders = async (req,res)=>{
     }
 };
 
-module.exports = {getOrders,createOrder,getOrderDetails,updateOrderStatus, deleteOrder, getSalesStatistic,getCountOfOrders,getUserOrders}
+module.exports = {getOrders,createOrder,getOrderDetails,updateOrderStatus, deleteOrder, getSalesStatistic,
+    getCountOfOrders,getUserOrders};

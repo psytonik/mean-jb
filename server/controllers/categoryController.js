@@ -1,12 +1,12 @@
 const {Category} = require("../models/CategoriesSchema");
 
-const getCategories = async (req,res)=>{
+const getCategories = async (req, res) => {
     try {
         const categories = await Category.find();
-        if(categories){
+        if (categories) {
             return res.status(200).json(categories);
         }
-    }catch (err){
+    } catch (err) {
         console.error(err.message, 'ERROR');
         return res.status(400).send('Get all categories failed');
     }

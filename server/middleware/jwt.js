@@ -6,7 +6,7 @@ const isRevoked = async (req, payload, done) => {
 	}
 
 	done();
-}
+};
 
 const authJwtMiddleware = () => {
 	const secret = process.env.SECRET_TOKEN;

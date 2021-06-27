@@ -13,14 +13,14 @@ app.options('*',cors());
 
 // ENVIRONMENTS
 const api = process.env.API_URL;
-const port = process.env.PORT || 3000
+const port = process.env.PORT || 3000;
 
 
 /// IMPORT ROUTES
-const productRoutes = require('./server/routes/productsRoute')
-const usersRoutes = require('./server/routes/usersRoute')
-const ordersRoutes = require('./server/routes/ordersRoute')
-const categoriesRoutes = require('./server/routes/categoriesRoutes')
+const productRoutes = require('./server/routes/productsRoute');
+const usersRoutes = require('./server/routes/usersRoute');
+const ordersRoutes = require('./server/routes/ordersRoute');
+const categoriesRoutes = require('./server/routes/categoriesRoutes');
 
 /// MIDDLEWARE
 app.use(express.json());
@@ -33,9 +33,9 @@ app.use(helmet());
 
 /// ROUTES
 app.use(`${api}/products`,productRoutes);
-app.use(`${api}/users`,usersRoutes)
-app.use(`${api}/orders`,ordersRoutes)
-app.use(`${api}/category`,categoriesRoutes)
+app.use(`${api}/users`,usersRoutes);
+app.use(`${api}/orders`,ordersRoutes);
+app.use(`${api}/category`,categoriesRoutes);
 
 /// DATABASE CONNECTION
 const dbConnection = require('./server/databaseConfig/mongoose');
@@ -45,4 +45,4 @@ dbConnection().then();
 /// RUN THE SERVER
 app.listen(port,()=>{
     console.log(`app running on ${process.env.HOST}:${port}`);
-})
+});

@@ -12,13 +12,13 @@ const OrdersSchema = new Schema({
     totalPrice: {type:Number},
     user:{type:Schema.Types.ObjectId, ref:'User', required:true},
     dateOrdered: {type:Date,default: Date.now()}
-})
+});
 
 OrdersSchema.virtual('id').get(function (){
     return this._id.toHexString();
-})
+});
 OrdersSchema.set('toJSON',{
     virtuals: true
-})
+});
 
 exports.Order = model('Order',OrdersSchema);

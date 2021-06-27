@@ -1,4 +1,5 @@
-const {getOrders,createOrder,getOrderDetails,updateOrderStatus, deleteOrder, getSalesStatistic,getCountOfOrders,getUserOrders} = require("../controllers/orderController");
+const {getOrders,createOrder,getOrderDetails,updateOrderStatus, deleteOrder, getSalesStatistic,
+	getCountOfOrders,getUserOrders} = require("../controllers/orderController");
 
 const express = require('express');
 
@@ -17,7 +18,7 @@ router.route('/get/totalsales')
 	.get(getSalesStatistic);
 
 router.route('/get/counts')
-	.get(getCountOfOrders)
+	.get(getCountOfOrders);
 
 router.route('/get/userorders/:userid')
 	.get(getUserOrders);

@@ -12,7 +12,10 @@ import {ButtonModule} from 'primeng/button';
 import {CheckboxModule} from 'primeng/checkbox';
 import { FormsModule } from '@angular/forms';
 import { ProductDetailsComponent } from './components/products/product-details/product-details.component';
-
+import {RatingModule} from 'primeng/rating';
+import {InputNumberModule} from 'primeng/inputnumber';
+import {GalleriaModule} from 'primeng/galleria';
+import {UiModule} from '@psytonik-dev/ui';
 const routes:Routes = [
   {path:'products', component:ProductsListComponent},
   {path: 'category/:categoryId',component: ProductsListComponent},
@@ -27,7 +30,11 @@ const routes:Routes = [
     RouterModule.forChild(routes),
     ButtonModule,
     CheckboxModule,
-    FormsModule
+    FormsModule,
+    RatingModule,
+    InputNumberModule,
+    GalleriaModule,
+    UiModule
   ],
   declarations: [
     SearchbarComponent,

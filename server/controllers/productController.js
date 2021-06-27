@@ -36,12 +36,16 @@ const getProductById = async (req,res) => {
 const addNewProduct = async (req,res) => {
     try {
             const file = req.file.filename;
-            if(!file) return res.status(400).send("Something went wrong!");
+            if(!file) {
+                return res.status(400).send("Something went wrong!");
+            }
 
             const basePath = `${req.protocol}://${req.get('host')}/public/uploads/`;
 
             const category = await Category.findById(req.body.category);
-            if(!category) return res.status(400).send('Invalid Category');
+            if(!category) {
+                return res.status(400).send('Invalid Category');
+            }
 
         let newProduct = await Product({
             image:`${basePath}${file}`,
@@ -57,7 +61,9 @@ const addNewProduct = async (req,res) => {
             name:req.body.name});
         newProduct = await newProduct.save();
 
-        if(!newProduct) return res.status(500).json({message:'The product cannot be added',success:false});
+        if(!newProduct) {
+            return res.status(500).json({message: 'The product cannot be added', success: false});
+        }
 
         return res.status(201).json(newProduct);
     }catch (err) {
@@ -68,15 +74,21 @@ const addNewProduct = async (req,res) => {
 
 const updateProduct = async (req,res) => {
     try{
-        if (!mongoose.isValidObjectId(req.params.id)) return res.status(400).send('Invalid Product Id');
+        if (!mongoose.isValidObjectId(req.params.id)) {
+            return res.status(400).send('Invalid Product Id');
+        }
 
         const category = await Category.findById(req.body.category);
 
-        if(!category) return res.status(400).send('Invalid Category');
+        if(!category) {
+            return res.status(400).send('Invalid Category');
+        }
 
         const product = await Product.findById(req.params.id);
 
-        if(!product) return res.status(400).send('Invalid Product!');
+        if(!product) {
+            return res.status(400).send('Invalid Product!');
+        }
 
         const file = req.file;
         let imagePath;
@@ -105,7 +117,9 @@ const updateProduct = async (req,res) => {
             },
             {new:true}
         );
-        if(!updatedProduct) return res.status(404).json({message: 'Product not updated'});
+        if(!updatedProduct) {
+            return res.status(404).json({message: 'Product not updated'});
+        }
 
         return res.status(200).json(updatedProduct);
     }catch (err) {
@@ -131,7 +145,9 @@ const deleteProduct = async (req,res) => {
 
 const uploadMultipleImages = async (req,res) => {
     try{
-        if(!mongoose.isValidObjectId(req.params.id)) return res.status(400).send('Invalid Product Id');
+        if(!mongoose.isValidObjectId(req.params.id)) {
+            return res.status(400).send('Invalid Product Id');
+        }
 
         const files = req.files;
         let imagesPaths = [];
@@ -142,7 +158,7 @@ const uploadMultipleImages = async (req,res) => {
                 imagesPaths.push(`${basePath}${file.filename}`);
             });
         }
-        console.log('files',imagesPaths)
+
         const product = await Product.findByIdAndUpdate(
           req.params.id,
           {
@@ -151,14 +167,16 @@ const uploadMultipleImages = async (req,res) => {
           { new: true }
         );
         console.log(req.params.id);
-        if (!product) return res.status(500).send('the gallery cannot be updated!');
+        if (!product) {
+            return res.status(500).send('the gallery cannot be updated!');
+        }
 
         return res.status(201).json(product);
     } catch (err) {
         console.error(err.message, 'ERROR');
         return res.status(400).json({message: 'Update images failed', error: err.message});
 }
-    }
+    };
 
 const getCountOfProducts = async (req,res) => {
     try{

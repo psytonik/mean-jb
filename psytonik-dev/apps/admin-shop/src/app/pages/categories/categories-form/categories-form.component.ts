@@ -51,7 +51,7 @@ export class CategoriesFormComponent implements OnInit,OnDestroy {
       color:this.form.value.color,
       icon:this.form.value.icon,
       id: this.currentCategoryId
-    }
+    };
 
     if(this.editMode){
       this._updateCategory(category);
@@ -111,9 +111,9 @@ export class CategoriesFormComponent implements OnInit,OnDestroy {
         this.editMode = true;
         this.currentCategoryId = response.id;
         this.getCategorySub = this.categoryService.getCategoryById(response.id).subscribe((data)=>{
-          this.categoryForm.name.setValue(data.name)
-          this.categoryForm.icon.setValue(data.icon)
-          this.categoryForm.color.setValue(data.color)
+          this.categoryForm.name.setValue(data.name);
+          this.categoryForm.icon.setValue(data.icon);
+          this.categoryForm.color.setValue(data.color);
         })
       }
     })

@@ -1,6 +1,6 @@
 const bcrypt = require('bcryptjs');
 const {User} = require('../models/UsersSchema');
-const mongoose = require('mongoose')
+const mongoose = require('mongoose');
 const jwt = require('jsonwebtoken');
 
 const createNewUser = async (req,res) => {
@@ -101,7 +101,7 @@ const loginUser = async (req,res) => {
                 },
                 process.env.SECRET_TOKEN,
                 {expiresIn:'24h'}
-                )
+                );
 
             return res.status(200).json({user:user.email,token});
         } else {
