@@ -3,6 +3,12 @@
     <img [src]="product.image" class="product-image" alt="product.name" [routerLink]="'/products/'+ product.id">
     <h4 class="product-name">{{product.name}}</h4>
     <h5 class="product-price">{{product.price | currency }}</h5>
-    <p-button styleClass="p-mt-4 add-to-cart" label="Add to cart" icon="pi pi-shopping-cart" iconPos="right"></p-button>
+    <p-button
+      styleClass="p-mt-4 add-to-cart"
+      label="Add to cart"
+      icon="pi pi-shopping-cart"
+      iconPos="right"
+      (onClick)="addProductToCart()"
+    ></p-button>
   </div>
 </div>

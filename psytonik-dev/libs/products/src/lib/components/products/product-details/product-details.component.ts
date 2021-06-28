@@ -1,5 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import {CartItem, CartServiceService } from '@psytonik-dev/orders';
 import { ProductsService,Product } from '@psytonik-dev/products';
 import { Subscription } from 'rxjs';
 
@@ -11,10 +12,15 @@ export class ProductDetailsComponent implements OnInit,OnDestroy {
 
   product!:Product;
   currentProductId: string = '';
-  quantity!: number;
+  quantity: number =1;
   productOriginalPrice!:any;
   subsForProduct!:Subscription;
-  constructor(private route: ActivatedRoute,private productService:ProductsService) { }
+
+  constructor(
+    private route: ActivatedRoute,
+    private productService:ProductsService,
+    private cartService:CartServiceService
+  ) { }
 
   ngOnDestroy(): void {
         if(this.subsForProduct){
@@ -29,11 +35,15 @@ export class ProductDetailsComponent implements OnInit,OnDestroy {
 
   addToCart(){
 
+    const cartItem: CartItem = {
+      productId:this.product.id,
+      quantity:this.quantity
+    };
+    this.cartService.setCartItem(cartItem);
   }
 
   private _getProduct(productId:string) {
     this.subsForProduct = this.productService.getProductById(productId).subscribe((productData)=>{
-      console.log(productData.price);
       this.productOriginalPrice = productData.price;
       this.product = productData;
     })

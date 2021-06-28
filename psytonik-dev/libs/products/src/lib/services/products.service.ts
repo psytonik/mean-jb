@@ -10,12 +10,12 @@ export class ProductsService {
 
   constructor(private httpClient:HttpClient) { }
 
-  getProducts(categoriesFilter?:any):Observable<Product[]>{
+  getProducts(categoriesFilter?: string[]):Observable<Product[]>{
     let params = new HttpParams();
     if(categoriesFilter){
       params = params.append('categories',categoriesFilter.join(','));
     }
-    return this.httpClient.get<Product[]>(`${environment.apiURL}/products`,{params})
+    return this.httpClient.get<Product[]>(`${environment.apiURL}/products`,{params:params})
   }
 
   createProduct(productData:FormData):Observable<Product>{

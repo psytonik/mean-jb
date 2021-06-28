@@ -13,7 +13,10 @@ export class ProductsListComponent implements OnInit,OnDestroy {
   categories!:Category[];
   isCategoryPage!: boolean;
 
-  constructor(private productsService: ProductsService, private categoryService:CategoriesService,private route: ActivatedRoute) {}
+  constructor(
+    private productsService: ProductsService,
+    private categoryService:CategoriesService,
+    private route: ActivatedRoute) {}
 
   getProductsSub!: Subscription;
   getCategorySub!: Subscription;
@@ -22,15 +25,8 @@ export class ProductsListComponent implements OnInit,OnDestroy {
     this.route.params.subscribe((params)=>{
       params.categoryId ? this._getProducts([params.categoryId]): this._getProducts();
       params.categoryId ? (this.isCategoryPage = true) : (this.isCategoryPage = false);
-    })
+    });
     this._getCategories()
-  }
-
-  categoryFilter(){
-    const selectedCategories = this.categories
-      .filter((category)=>{category.checked})
-      .map((category)=>{category.id})
-    this._getProducts(selectedCategories);
   }
 
   private _getProducts(categoriesFilter?:any[]) {
@@ -45,6 +41,13 @@ export class ProductsListComponent implements OnInit,OnDestroy {
       .subscribe(cats=>{
         this.categories = cats;
       })
+  }
+
+  categoryFilter(){
+    const selectedCategories = this.categories
+      .filter((category)=> category.checked)
+      .map((category)=>category.id);
+    this._getProducts(selectedCategories);
   }
 
   ngOnDestroy(): void {

@@ -16,6 +16,7 @@ import {RatingModule} from 'primeng/rating';
 import {InputNumberModule} from 'primeng/inputnumber';
 import {GalleriaModule} from 'primeng/galleria';
 import {UiModule} from '@psytonik-dev/ui';
+
 const routes:Routes = [
   {path:'products', component:ProductsListComponent},
   {path: 'category/:categoryId',component: ProductsListComponent},
