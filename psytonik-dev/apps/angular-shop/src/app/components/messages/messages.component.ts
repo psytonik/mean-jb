@@ -1,9 +1,9 @@
-import { Component, OnInit } from '@angular/core';
-import { CartServiceService } from '@psytonik-dev/orders';
-import { MessageService } from 'primeng/api';
+import { Component, OnInit } from "@angular/core";
+import { CartServiceService } from "@psytonik-dev/orders";
+import { MessageService } from "primeng/api";
 
 @Component({
-  selector: 'messages',
+  selector: 'jbshop-messages',
   templateUrl: './messages.component.html'
 })
 export class MessagesComponent implements OnInit {

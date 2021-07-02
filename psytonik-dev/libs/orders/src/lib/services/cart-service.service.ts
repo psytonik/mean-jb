@@ -1,8 +1,9 @@
-import {Injectable} from '@angular/core';
-import {Cart, CartItem} from '@psytonik-dev/orders';
-import { BehaviorSubject } from 'rxjs';
+import { Injectable } from "@angular/core";
 
-export const CART_KEY:string = 'cart';
+import { BehaviorSubject } from "rxjs";
+import { Cart, CartItem } from "../models/cart";
+
+export const CART_KEY = 'cart';
 
 @Injectable({
   providedIn: 'root'
@@ -11,17 +12,23 @@ export class CartServiceService {
 
   cartSubscription: BehaviorSubject<Cart> = new BehaviorSubject(this.getCart());
 
-  constructor() { }
-
   initCartLocalStorage() {
     const cart:Cart = this.getCart();
     if (!cart) {
       const initialCart = {
         items: []
       };
-      let initialCartJson = JSON.stringify(initialCart);
+      const initialCartJson = JSON.stringify(initialCart);
       localStorage.setItem(CART_KEY, initialCartJson);
     }
+  }
+  emptyCart():void{
+    const initialCart:Cart = {
+      items: []
+    };
+    const initialCartJson = JSON.stringify(initialCart);
+    localStorage.setItem(CART_KEY, initialCartJson);
+    this.cartSubscription.next(initialCart);
   }
 
   getCart():Cart {
@@ -29,13 +36,17 @@ export class CartServiceService {
     return JSON.parse(cartJsonString);
   }
 
-  setCartItem(cartItem:CartItem):Cart {
+  setCartItem(cartItem:CartItem,updateCartItem?:boolean):Cart {
     const cart = this.getCart();
-    const cartItemExist = cart?.items?.find((item)=> item.productId === cartItem.productId);
+    const cartItemExist = cart?.items?.find((item:CartItem)=> item.productId === cartItem.productId);
     if(cartItemExist){
       cart?.items?.map((item:any) => {
         if(item.productId === cartItem.productId){
-          item.quantity += cartItem.quantity;
+          if(updateCartItem){
+            item.quantity = cartItem.quantity;
+          } else {
+            item.quantity += cartItem.quantity;
+          }
           return item;
         }
       })
@@ -48,4 +59,13 @@ export class CartServiceService {
     return cart;
   }
 
+  deleteCartItem(productId:string){
+    const cart = this.getCart();
+    cart.items = cart.items?.filter(item => item.productId !== productId);
+
+    const cartString = JSON.stringify(cart);
+    localStorage.setItem(CART_KEY,cartString);
+    this.cartSubscription.next(cart);
+    return cart;
+  }
 }

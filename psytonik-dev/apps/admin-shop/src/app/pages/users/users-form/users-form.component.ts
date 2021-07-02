@@ -1,14 +1,12 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Location } from '@angular/common';
-import {FormControl, FormGroup, Validators } from '@angular/forms';
-import {User, UsersService } from '@psytonik-dev/users';
-import { ActivatedRoute, Router } from '@angular/router';
-import { MessageService } from 'primeng/api';
-import { timer,Subscription } from 'rxjs';
-export interface Country {
-  id:string,
-  name:string
-}
+import { Component, OnDestroy, OnInit } from "@angular/core";
+import { Location } from "@angular/common";
+import { FormControl, FormGroup, Validators } from "@angular/forms";
+import { User, UsersService } from "@psytonik-dev/users";
+import { ActivatedRoute, Router } from "@angular/router";
+import { MessageService } from "primeng/api";
+import { Subscription, timer } from "rxjs";
+import { Country } from "@psytonik-dev/orders";
+
 
 @Component({
   selector: 'adminshop-users-form',
@@ -20,7 +18,7 @@ export class UsersFormComponent implements OnInit,OnDestroy {
   editMode = false;
   submitted = false;
   form!: FormGroup;
-  currentUserId: string = '';
+  currentUserId = '';
   countries:Country[] = [];
 
   addUserSub!: Subscription;
@@ -71,7 +69,7 @@ export class UsersFormComponent implements OnInit,OnDestroy {
       zip: this.userForm.zip.value,
       city: this.userForm.city.value,
       country: this.userForm.country.value
-    }
+    };
     if(this.editMode){
       return this._updateUser(user)
     } else {

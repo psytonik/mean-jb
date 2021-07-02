@@ -1,7 +1,7 @@
 import { NgModule } from "@angular/core";
 import { Route, RouterModule } from "@angular/router";
-import { AuthGuard } from "@psytonik-dev/users";
-import { LoginComponent } from "libs/users/src/lib/pages/login/login.component";
+import { AuthGuard, LoginComponent } from "@psytonik-dev/users";
+
 
 import { CategoriesFormComponent } from "./pages/categories/categories-form/categories-form.component";
 import { CategoriesListComponent } from "./pages/categories/categories-list/categories-list.component";
@@ -13,6 +13,7 @@ import { ProductsListComponent } from "./pages/products/products-list/products-l
 import { UsersFormComponent } from "./pages/users/users-form/users-form.component";
 import { UsersListComponent } from "./pages/users/users-list/users-list.component";
 import { ShellComponent } from "./shared/shell/shell.component";
+
 
 const adminRoutes: Route[] = [
   {

@@ -1,10 +1,10 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { OrdersService,Order } from '@psytonik-dev/orders';
-import { Location } from '@angular/common'
-import { MessageService } from 'primeng/api';
-import {ORDER_STATUS} from '../order.constants';
-import { Subscription } from 'rxjs';
+import { Component, OnDestroy, OnInit } from "@angular/core";
+import { ActivatedRoute } from "@angular/router";
+import { ORDER_STATUS, OrdersService } from "@psytonik-dev/orders";
+import { Location } from "@angular/common";
+import { MessageService } from "primeng/api";
+
+import { Subscription } from "rxjs";
 
 
 @Component({
@@ -14,7 +14,7 @@ import { Subscription } from 'rxjs';
 export class OrderDetailsComponent implements OnInit,OnDestroy {
 
   order: any = {};
-  orderStatuses:any = []
+  orderStatuses:any = [];
   selectedStatus:any;
   changeSub!:Subscription;
   getOrderSub!: Subscription;
@@ -67,9 +67,10 @@ export class OrderDetailsComponent implements OnInit,OnDestroy {
 
   private _getOrder() {
     this.routeParamsSub = this.route.params.subscribe((response)=>{
+
       if(response.id){
         this.getOrderSub = this.orderService.getOrder(response.id)
-          .subscribe((order)=>{
+          .subscribe((order:any)=>{
             this.order = order;
             this.selectedStatus = order.status;
           })

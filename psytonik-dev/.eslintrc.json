@@ -18,12 +18,18 @@
               }
             ]
           }
-        ]
+        ],
+        "no-empty-function": "off",
+        "@typescript-eslint/no-explicit-any": "off",
+        "@typescript-eslint/no-empty-function": "off",
+        "semi": ["error", "always"],
+        "quotes": ["error", "double"]
       }
     },
     {
       "files": ["*.ts", "*.tsx"],
       "extends": ["plugin:@nrwl/nx/typescript"],
+      "parserOptions": { "project": "./tsconfig.*?.json" },
       "rules": {}
     },
     {

@@ -1,6 +1,8 @@
-import { Component, OnInit,OnDestroy } from '@angular/core';
-import { CategoriesService,Category } from '@psytonik-dev/products';
-import { Subscription } from 'rxjs';
+import { Component, OnDestroy, OnInit } from "@angular/core";
+
+import { Subscription } from "rxjs";
+import { Category } from "../../../models/category";
+import { CategoriesService } from "../../../services/categories.service";
 
 @Component({
   selector: 'categories-banner',

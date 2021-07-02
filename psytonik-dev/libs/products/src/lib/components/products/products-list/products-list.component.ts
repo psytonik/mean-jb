@@ -1,7 +1,11 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { ProductsService,Product, CategoriesService, Category } from '@psytonik-dev/products';
-import { Subscription } from 'rxjs';
+import { Component, OnDestroy, OnInit } from "@angular/core";
+import { ActivatedRoute } from "@angular/router";
+
+import { Subscription } from "rxjs";
+import { Category } from "../../../models/category";
+import { Product } from "../../../models/product";
+import { CategoriesService } from "../../../services/categories.service";
+import { ProductsService } from "../../../services/products.service";
 
 @Component({
   selector: 'products-featured-product',

@@ -1,8 +1,9 @@
-import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
-import { environment } from 'environments/environments';
-import { Observable } from 'rxjs';
-import {Order} from '../models/order';
+import { HttpClient } from "@angular/common/http";
+import { Injectable } from "@angular/core";
+
+import { environment } from "environments/environments";
+import { Observable } from "rxjs";
+import { Order } from "../models/order";
 
 @Injectable({
   providedIn: 'root'
@@ -31,5 +32,8 @@ export class OrdersService {
   }
   getTotalOrders():Observable<any>{
     return this.httpClient.get<any>(`${environment.apiURL}/orders/get/counts`)
+  }
+  getProductById(id:string):Observable<any>{
+    return this.httpClient.get<any>(`${environment.apiURL}/products/${id}`)
   }
 }

@@ -1,8 +1,8 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import {ConfirmationService,ConfirmEventType,MessageService} from 'primeng/api';
-import {User, UsersService } from '@psytonik-dev/users';
-import { Subscription } from 'rxjs';
-import { Router } from '@angular/router';
+import { Component, OnDestroy, OnInit } from "@angular/core";
+import { ConfirmationService, ConfirmEventType, MessageService } from "primeng/api";
+import { User, UsersService } from "@psytonik-dev/users";
+import { Subscription } from "rxjs";
+import { Router } from "@angular/router";
 
 @Component({
   selector: 'adminshop-users-list',
@@ -48,7 +48,7 @@ export class UsersListComponent implements OnInit, OnDestroy {
           this.messageService.add({severity:'danger', summary:'Delete Failed', detail:error.message});
         })
       },
-      reject: (type: any) => {
+      reject: (type:any) => {
         switch(type) {
           case ConfirmEventType.REJECT:
             this.messageService.add({severity:'error', summary:'Rejected', detail:'You have rejected'});
@@ -62,7 +62,7 @@ export class UsersListComponent implements OnInit, OnDestroy {
   }
 
   onEdit(id:string){
-    this.router.navigateByUrl(`users/form/${id}`);
+    this.router.navigateByUrl(`users/form/${id}`).then(r=>r);
     this.editSub = this.userService.getUser(id)
       .subscribe(user=>{
         this.user = user;

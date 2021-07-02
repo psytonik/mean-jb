@@ -1,6 +1,8 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Product, ProductsService } from '@psytonik-dev/products';
-import { Subscription } from 'rxjs';
+import { Component, OnDestroy, OnInit } from "@angular/core";
+
+import { Subscription } from "rxjs";
+import { Product } from "../../../models/product";
+import { ProductsService } from "../../../services/products.service";
 
 @Component({
   selector: 'products-featured-product',
@@ -10,7 +12,7 @@ export class FeaturedProductComponent implements OnInit,OnDestroy {
 
   featuredProducts: Product[] = [];
   productsSub!: Subscription;
-  limit: number = 4;
+  limit = 4;
   constructor(private productService: ProductsService) { }
 
   ngOnInit(): void {

@@ -6,9 +6,11 @@ const getOrders = async (req,res)=>{
         const orders = await Order.find()
             .populate('user','name email')
             .sort({'dateOrdered': -1});
-        if(orders){
-            res.status(200).json(orders);
+
+        if(!orders){
+            return res.status(400).json({message: 'Can\'t get orders'});
         }
+        return res.status(200).json(orders);
     }catch (err){
         console.error(err)
     }
@@ -17,58 +19,66 @@ const getOrders = async (req,res)=>{
 const getOrderDetails = async (req,res)=>{
     try {
         const orderDetails = await Order.findById(req.params.id)
-            .populate('user', 'name email')
-            .populate({path:'orderItems',
-                populate:{path:'product',
-                    populate:{path:'category'}}});
+          .populate("user", "name email")
+          .populate({
+              path: "orderitems", populate: { path: "product", populate: "category" },
+          });
 
-        if(orderDetails){
-            res.status(200).json(orderDetails);
+        if(!orderDetails){
+            return res.status(400).json({message: 'Can\'t get order details'});
         }
+        return res.status(200).json(orderDetails);
     }catch (err){
-        console.error(err)
+        return res.status(400).json({message: 'Can\'t get order', error: err.message});
     }
 };
 
 const createOrder = async (req,res) => {
     try{
-        const orderItemsIds = Promise.all(req.body.orderItems.map( async (orderItem) => {
+        const orderItemsIds = Promise.all(req.body.orderitems.map( async (orderItem) => {
             let newOrderItem = new OrderItems({
                 quantity:orderItem.quantity,
                 product:orderItem.product
             });
 
             newOrderItem = await newOrderItem.save();
-            return await newOrderItem._id;
+            return await newOrderItem.id;
 
         }));
         let orderItemsIdsResolved = await orderItemsIds;
 
-        const totalPrices = await Promise.all(await orderItemsIdsResolved.map( async (orderItemsId)=>{
-            const orderItem = await OrderItems.findById(orderItemsId).populate('product','price');
+        const totalPrices = await Promise.all(await orderItemsIdsResolved
+          .map( async (orderItemsId)=>{
+            const orderItem = await OrderItems.findById(orderItemsId)
+              .populate('product','price');
 
             return  orderItem.product.price * orderItem.quantity
         }));
 
         const totalPrice = totalPrices.reduce((a,b)=>a+b,0);
-        let order = new Order({
-            orderItems: orderItemsIdsResolved,
-            shippingAddress1: req.body.shippingAddress1,
-            shippingAddress2: req.body.shippingAddress2,
-            city: req.body.city,
-            zip: req.body.zip,
-            country: req.body.country,
-            phone: req.body.phone,
-            totalPrice:totalPrice,
-            user: req.body.user,
-            status: req.body.status
-        });
-        order = await order.save();
 
-        if(!order){
-            return res.status(400).json({message:'The order cannot be added',success:false})
+        if(!orderItemsIdsResolved && totalPrice === 0){
+            return res.status(400).json({message:'The order without items cannot be added',success:false})
+        } else {
+            let order = new Order({
+                orderitems: orderItemsIdsResolved,
+                shippingAddress1: req.body.shippingAddress1,
+                shippingAddress2: req.body.shippingAddress2,
+                city: req.body.city,
+                zip: req.body.zip,
+                country: req.body.country,
+                phone: req.body.phone,
+                totalPrice:totalPrice,
+                user: req.body.user,
+                status: req.body.status
+            });
+            await order.save();
+
+            if(!order){
+                return res.status(400).json({message:'The order cannot be added',success:false})
+            }
+            return res.status(201).json(order);
         }
-        return res.status(201).json(order);
 
     } catch (err) {
         console.error('ERROR', err.message);
@@ -102,7 +112,7 @@ const deleteOrder = async (req,res) => {
             let orderItemIds = orderToBeDeleted.orderItems;
             await Promise.all(
                 orderItemIds.map(async (orderItemId) => {
-                    return await OrderItems.findByIdAndDelete({ _id: orderItemId });
+                    await OrderItems.findByIdAndDelete({ _id: orderItemId });
                 })
             );
             return res.status(200).json({success: true, message: `Order successfully deleted`});
@@ -120,47 +130,49 @@ const deleteOrder = async (req,res) => {
 
 const getSalesStatistic = async (req,res) => {
     try{
-        const totalSales = await Order.aggregate([
+        let totalSales = await Order.aggregate([
             {$group:{ _id: null, totalSales:{$sum : '$totalPrice'}}}
         ]);
-        if(!totalSales){
-            return res.status(404).json({success:false,message:'No sales'})
+        if (!totalSales) {
+            return res.status(404).json({ success: false, message: 'No sales' })
         }
-        return res.status(200).json({totalSales:totalSales.pop().totalSales});
-
+        return res.status(200).json({ totalSales: totalSales.pop().totalSales });
     } catch (err) {
         return res.status(500).json({
             error: err.message,
             success: false,
-            message: 'Internal Server Error',
+            message: err.message,
         });
     }
 };
 
 const getCountOfOrders = async (req,res) => {
     try{
-        const orderCount = await Order.countDocuments((count)=> count);
+        const orderCount = await Order.countDocuments(count => count);
         if(!orderCount){
-            return res.status(400).json({message: 'Can\'t count orders'});
+            return res.status(404).json({message: 'No Orders'});
         }
         return res.status(200).json({orderCount});
     } catch (err) {
         console.error(err.message, 'ERROR => getCountOfOrders');
-        return res.status(400).json({message: 'Can\'t get count of orders', error: err.message});
+        return res.status(500).json({
+            message: err.message,
+            success:false,
+            error: err.message
+        });
     }
 };
 
 const getUserOrders = async (req,res)=>{
     try {
-        const userOrder = await Order.find({user:req.params.userid})
-            .populate({path:'orderItems',
-                populate:{path:'product',
-                    populate:{path:'category'}}})
+        const userOrder = await Order.find({user:req.params.userId})
+            .populate({path:'orderitems', populate:{path:'product', populate:'category'}})
             .sort({'dateOrdered': -1});
 
-        if(userOrder){
-            res.status(200).json(userOrder);
+        if(!userOrder){
+            res.status(400).json({message: 'Can\'t find user'});
         }
+        return res.status(200).json(userOrder);
     }catch (err){
         return res.status(400).json({message: 'Can\'t get user orders', error: err.message});
     }

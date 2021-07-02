@@ -1,8 +1,7 @@
-import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Injectable } from "@angular/core";
 
-import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot} from '@angular/router';
-import { LocalStorageService } from './local-storage.service';
+import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot } from "@angular/router";
+import { LocalStorageService } from "./local-storage.service";
 
 @Injectable({
   providedIn: 'root'
@@ -13,10 +12,10 @@ export class AuthGuard implements CanActivate {
   ) {
   }
 
-  canActivate(
-    route: ActivatedRouteSnapshot,
-    state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean {
+  canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
       const token = this.localStorageService.getToken();
+      console.log(route);
+      console.log(state);
       if(token){
         // atob it javascript native function to decode token
         const tokenDecode = JSON.parse(atob(token.split('.')[1]));
@@ -24,13 +23,13 @@ export class AuthGuard implements CanActivate {
           return true
         }
       }
-        this.router.navigate(['login'])
+        this.router.navigate(['login']).then(r=>r);
         return false;
 
     }
 
-  private _tokenExpired(exparation:any):boolean {
-    return Math.floor(new Date().getTime() / 1000) >= exparation;
+  private _tokenExpired(expiration:any):boolean {
+    return Math.floor(new Date().getTime() / 1000) >= expiration;
   }
 
 }

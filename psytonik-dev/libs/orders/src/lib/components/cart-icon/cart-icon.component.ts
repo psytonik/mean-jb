@@ -1,6 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { CartServiceService } from '@psytonik-dev/orders';
-import { MessageService } from 'primeng/api';
+import { Component, OnInit } from "@angular/core";
+import { CartServiceService } from "../../services/cart-service.service";
 
 @Component({
   selector: 'orders-cart-icon',

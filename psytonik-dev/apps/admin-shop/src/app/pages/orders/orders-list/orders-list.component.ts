@@ -1,9 +1,9 @@
-import { Component, OnInit,OnDestroy } from '@angular/core';
-import { Router } from '@angular/router';
-import { OrdersService,Order } from '@psytonik-dev/orders';
-import { ConfirmEventType,ConfirmationService,MessageService } from 'primeng/api';
-import { Subscription } from 'rxjs';
-import {ORDER_STATUS} from '../order.constants';
+import { Component, OnDestroy, OnInit } from "@angular/core";
+import { Router } from "@angular/router";
+import { Order, ORDER_STATUS, OrdersService } from "@psytonik-dev/orders";
+import { ConfirmationService, ConfirmEventType, MessageService } from "primeng/api";
+import { Subscription } from "rxjs";
+
 
 @Component({
   selector: 'adminshop-orders-list',
@@ -63,7 +63,7 @@ export class OrdersListComponent implements OnInit,OnDestroy {
   }
 
   onView(id:string){
-    this.router.navigateByUrl(`orders/${id}`);
+    this.router.navigateByUrl(`orders/${id}`).then(r => r);
   }
 
   private _getOrders(){

@@ -1,17 +1,17 @@
-import { NgModule } from '@angular/core';
-import { CommonModule} from '@angular/common';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { NgModule } from "@angular/core";
+import { CommonModule } from "@angular/common";
+import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 
-import { LoginComponent } from './pages/login/login.component';
+import { LoginComponent } from "./pages/login/login.component";
 
-import {InputTextModule} from 'primeng/inputtext';
-import {PasswordModule} from 'primeng/password';
-import {ButtonModule} from 'primeng/button';
-import {ToastModule} from 'primeng/toast';
-import { MessageService } from 'primeng/api';
+import { InputTextModule } from "primeng/inputtext";
+import { PasswordModule } from "primeng/password";
+import { ButtonModule } from "primeng/button";
+import { ToastModule } from "primeng/toast";
+import { MessageService } from "primeng/api";
 
-import { AuthService } from './services/auth.service';
-import { LocalStorageService } from './services/local-storage.service';
+import { AuthService } from "./services/auth.service";
+import { LocalStorageService } from "./services/local-storage.service";
 
 const UX_MODULES = [
   InputTextModule,
@@ -23,7 +23,7 @@ const UX_MODULES = [
 ];
 
 @NgModule({
-  imports: [CommonModule,...UX_MODULES],
+  imports: [CommonModule,ReactiveFormsModule,FormsModule,UX_MODULES],
   declarations: [
     LoginComponent
   ],

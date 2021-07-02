@@ -1,9 +1,9 @@
-import { Component, OnDestroy, OnInit} from '@angular/core';
-import {OrdersService} from '@psytonik-dev/orders';
-import {ProductsService} from '@psytonik-dev/products';
+import { Component, OnDestroy, OnInit } from "@angular/core";
+import { OrdersService } from "@psytonik-dev/orders";
+import { ProductsService } from "@psytonik-dev/products";
 
-import {UsersService} from '@psytonik-dev/users';
-import {Subscription} from 'rxjs';
+import { UsersService } from "@psytonik-dev/users";
+import { Subscription } from "rxjs";
 
 @Component({
   selector: 'adminshop-dashboard',
@@ -11,13 +11,10 @@ import {Subscription} from 'rxjs';
 })
 export class DashboardComponent implements OnInit, OnDestroy {
 
-  sales: number = 0;
-  users: number = 0;
-  products: number = 0;
-  orders: number = 0;
-
-  data: any;
-  chartOptions: any;
+  sales = 0;
+  users = 0;
+  products = 0;
+  orders = 0;
 
   constructor(
     private userService: UsersService,
@@ -36,7 +33,6 @@ export class DashboardComponent implements OnInit, OnDestroy {
     this._getTotalOrders();
     this._getTotalProducts();
     this._getUsersCount();
-    this.showCharts();
   }
   ngOnDestroy(): void {
     if(this.salesSub){
@@ -52,7 +48,9 @@ export class DashboardComponent implements OnInit, OnDestroy {
 
 
   private _getUsersCount() {
-    this.usersSub = this.userService.getUsersCount().subscribe(data=>this.users = data.userCount)
+    this.usersSub = this.userService.getUsersCount().subscribe(data=>{
+      this.users = data.userCount
+    })
   }
 
   private _getTotalProducts() {
@@ -64,34 +62,16 @@ export class DashboardComponent implements OnInit, OnDestroy {
 
   private _getTotalOrders() {
     this.ordersSub = this.orderService.getTotalOrders()
-      .subscribe(data=> this.orders = data.orderCount)
+      .subscribe(data=> {
+        this.orders = data.orderCount
+      })
   }
 
   private _getTotalSales() {
     this.salesSub =this.orderService.totalTotalSales()
-      .subscribe(data=>this.sales = data.totalSales)
-  }
-
-  showCharts() {
-    this.data = {
-      labels: ['Orders','Products','Users','Sales'],
-      datasets: [
-        {
-          data: [2, 3, 4,6],
-          backgroundColor: [
-            "#FF6384",
-            "#36A2EB",
-            "#FFCE56",
-            "green",
-          ],
-          hoverBackgroundColor: [
-            "#FF6384",
-            "#36A2EB",
-            "#FFCE56",
-            "green",
-          ]
-        }]
-    };
+      .subscribe(data=>{
+        this.sales = data.totalSales;
+      })
   }
 
 }

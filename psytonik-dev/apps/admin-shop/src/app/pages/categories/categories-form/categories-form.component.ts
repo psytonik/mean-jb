@@ -1,10 +1,10 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Location } from '@angular/common'
-import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
-import { CategoriesService,Category } from '@psytonik-dev/products';
-import { MessageService } from 'primeng/api';
-import {Subscription, timer } from 'rxjs';
+import { Component, OnDestroy, OnInit } from "@angular/core";
+import { Location } from "@angular/common";
+import { FormControl, FormGroup, Validators } from "@angular/forms";
+import { ActivatedRoute, Router } from "@angular/router";
+import { CategoriesService, Category } from "@psytonik-dev/products";
+import { MessageService } from "primeng/api";
+import { Subscription, timer } from "rxjs";
 
 @Component({
   selector: 'adminshop-categories-form',
@@ -15,7 +15,7 @@ export class CategoriesFormComponent implements OnInit,OnDestroy {
   form!: FormGroup;
   submitted = false;
   editMode = false;
-  currentCategoryId: string = '';
+  currentCategoryId = '';
   color!: string;
   createCatSub!:Subscription;
   updateCatSub!:Subscription;

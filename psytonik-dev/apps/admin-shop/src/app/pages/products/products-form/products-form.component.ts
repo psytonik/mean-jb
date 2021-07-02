@@ -1,10 +1,10 @@
-import { Component, OnInit,OnDestroy } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ProductsService, CategoriesService, Category, Product } from '@psytonik-dev/products';
-import { Location } from '@angular/common'
-import { ActivatedRoute, Router } from '@angular/router';
-import { MessageService } from 'primeng/api';
-import { timer,Subscription } from 'rxjs';
+import { Component, OnDestroy, OnInit } from "@angular/core";
+import { FormBuilder, FormGroup, Validators } from "@angular/forms";
+import { CategoriesService, Category, Product, ProductsService } from "@psytonik-dev/products";
+import { Location } from "@angular/common";
+import { ActivatedRoute, Router } from "@angular/router";
+import { MessageService } from "primeng/api";
+import { Subscription, timer } from "rxjs";
 
 @Component({
   selector: 'adminshop-products-form',
@@ -24,7 +24,7 @@ export class ProductsFormComponent implements OnInit,OnDestroy {
   updateProductSub!: Subscription;
   routeParamsSub!: Subscription;
 
-  currentProductId: string = '';
+  currentProductId = '';
 
   constructor(
     private productService: ProductsService,
@@ -68,11 +68,11 @@ export class ProductsFormComponent implements OnInit,OnDestroy {
     const file = event.target.files[0];
     if(file){
       this.form.patchValue({image:file});
-      this.form.get('image')!.updateValueAndValidity();
+      this.form.get('image')?.updateValueAndValidity();
       const fileReader = new FileReader();
       fileReader.onload = ()=> {
         this.imageDisplay = fileReader.result;
-      }
+      };
       fileReader.readAsDataURL(file);
     }
   }
@@ -161,15 +161,19 @@ export class ProductsFormComponent implements OnInit,OnDestroy {
         this.currentProductId = response.id;
         this.productSub = this.productService.getProductById(this.currentProductId)
           .subscribe(product=>{
-            this.productForm.name.setValue(product.name)
-            this.productForm.description.setValue(product.description)
-            this.productForm.richDescription.setValue(product.richDescription)
-            this.productForm.countInStock.setValue(product.countInStock)
-            this.productForm.brand.setValue(product.brand)
-            this.productForm.price.setValue(product.price)
-            this.productForm.isFeatured.setValue(product.isFeatured)
-            this.productForm.category.setValue(product.category!.id)
-            this.imageDisplay = product.image
+            const {
+              image, richDescription, brand, countInStock,
+              isFeatured, name, category, price, description
+            } = product;
+            this.productForm.name.setValue(name);
+            this.productForm.description.setValue(description);
+            this.productForm.richDescription.setValue(richDescription);
+            this.productForm.countInStock.setValue(countInStock);
+            this.productForm.brand.setValue(brand);
+            this.productForm.price.setValue(price);
+            this.productForm.isFeatured.setValue(isFeatured);
+            this.productForm.category.setValue(category?.id);
+            this.imageDisplay = image;
             this.productForm.image.setValidators([]);
             this.productForm.image.updateValueAndValidity();
           })

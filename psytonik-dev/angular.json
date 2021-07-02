@@ -93,9 +93,11 @@
           "configurations": {
             "production": {
               "browserTarget": "angular-shop:build:production"
+
             },
             "development": {
               "browserTarget": "angular-shop:build:development"
+
             }
           },
           "defaultConfiguration": "development"
@@ -172,7 +174,7 @@
               "apps/admin-shop/src/assets"
             ],
             "styles": [ "apps/admin-shop/src/styles.scss", "node_modules/quill/dist/quill.core.css","node_modules/quill/dist/quill.snow.css" ],
-            "scripts": ["node_modules/quill/dist/quill.js","node_modules/chart.js/dist/Chart.js"]
+            "scripts": ["node_modules/quill/dist/quill.js"]
           },
           "configurations": {
             "production": {
@@ -212,9 +214,11 @@
           "configurations": {
             "production": {
               "browserTarget": "admin-shop:build:production"
+
             },
             "development": {
               "browserTarget": "admin-shop:build:development"
+
             }
           },
           "defaultConfiguration": "development"

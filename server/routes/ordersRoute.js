@@ -1,9 +1,9 @@
-const {getOrders,createOrder,getOrderDetails,updateOrderStatus, deleteOrder, getSalesStatistic,
-	getCountOfOrders,getUserOrders} = require("../controllers/orderController");
-
 const express = require('express');
-
 const router = express.Router();
+
+const { getOrders, createOrder, getOrderDetails, updateOrderStatus, deleteOrder, getSalesStatistic,
+	getCountOfOrders, getUserOrders } = require("../controllers/orderController");
+
 
 router.route('/')
     .get(getOrders)
@@ -20,7 +20,7 @@ router.route('/get/totalsales')
 router.route('/get/counts')
 	.get(getCountOfOrders);
 
-router.route('/get/userorders/:userid')
+router.route('/get/userorders/:userId')
 	.get(getUserOrders);
 
 module.exports = router;

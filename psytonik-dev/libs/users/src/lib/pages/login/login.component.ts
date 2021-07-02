@@ -1,12 +1,11 @@
-import { HttpErrorResponse } from '@angular/common/http';
-import { Component, OnInit, OnDestroy } from '@angular/core';
-import { FormGroup, Validators, FormControl } from '@angular/forms';
-import { Router } from '@angular/router';
-import { MessageService } from 'primeng/api';
-import { timer } from 'rxjs';
-import { Subscription } from 'rxjs';
-import { AuthService } from '../../services/auth.service';
-import { LocalStorageService } from '../../services/local-storage.service';
+import { HttpErrorResponse } from "@angular/common/http";
+import { Component, OnDestroy, OnInit } from "@angular/core";
+import { FormControl, FormGroup, Validators } from "@angular/forms";
+import { Router } from "@angular/router";
+import { MessageService } from "primeng/api";
+import { Subscription, timer } from "rxjs";
+import { AuthService } from "../../services/auth.service";
+import { LocalStorageService } from "../../services/local-storage.service";
 
 @Component({
   selector: 'users-login',
@@ -29,6 +28,13 @@ export class LoginComponent implements OnInit,OnDestroy {
     this._initForm();
   }
 
+  private _initForm(){
+    this.form = new FormGroup({
+      email: new FormControl('',[Validators.required,Validators.email]),
+      password: new FormControl('',Validators.required)
+    })
+  }
+
   onSubmit(){
     this.submitted = true;
 
@@ -43,7 +49,6 @@ export class LoginComponent implements OnInit,OnDestroy {
         if(user){
           this.localStorage.setToken(user.token);
         }
-
         this.messageService.add(
           {severity:'success', summary:'Success', detail:`You Are Logged In Successfully`},
         );
@@ -51,7 +56,7 @@ export class LoginComponent implements OnInit,OnDestroy {
           timer(2000).toPromise().then(()=>{
             this.submitted = false;
             this.form.reset();
-            this.router.navigate(['/']);
+            this.router.navigate(['/']).then(r=>r);
           })
     },
       (error:HttpErrorResponse)=>{
@@ -80,12 +85,7 @@ export class LoginComponent implements OnInit,OnDestroy {
     }
   }
 
-  private _initForm(){
-    this.form = new FormGroup({
-      email: new FormControl('',[Validators.required,Validators.email]),
-      password: new FormControl('',Validators.required)
-    })
-  }
+
 
   get loginForm () {
     return this.form.controls;

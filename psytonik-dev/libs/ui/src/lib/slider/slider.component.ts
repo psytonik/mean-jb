@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from "@angular/core";
 
 @Component({
   selector: 'ui-slider',
@@ -6,10 +6,9 @@ import { Component, Input, OnInit } from '@angular/core';
 })
 
 export class SliderComponent implements OnInit {
-  @Input() images!: any;
+  selectedImage = '';
 
-  selectedImage!: string;
-  constructor() { }
+  @Input() images:any;
 
   ngOnInit(): void {
     if(this.hasImages){
@@ -20,8 +19,7 @@ export class SliderComponent implements OnInit {
   changeSelectedImage(imageUrl:string){
     this.selectedImage = imageUrl;
   }
-
-  get hasImages(){
-    return this.images?.length> 0
+  get hasImages():boolean {
+    return this.images?.length > 0;
   }
 }

@@ -15,12 +15,12 @@ const ProductsSchema = new Schema({
     isFeatured: {type:Boolean, default: false},
     dateCreated: {type: Date, default: Date.now()},
     // reviews:Array
-})
+});
 
 ProductsSchema.virtual('id').get(function (){
     return this._id.toHexString();
-})
+});
 ProductsSchema.set('toJSON',{
     virtuals: true
-})
+});
 exports.Product = model('Product',ProductsSchema);

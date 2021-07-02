@@ -1,8 +1,10 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import {CartItem, CartServiceService } from '@psytonik-dev/orders';
-import { ProductsService,Product } from '@psytonik-dev/products';
-import { Subscription } from 'rxjs';
+import { Component, OnDestroy, OnInit } from "@angular/core";
+import { ActivatedRoute } from "@angular/router";
+import { CartItem, CartServiceService } from "@psytonik-dev/orders";
+
+import { Subscription } from "rxjs";
+import { Product } from "../../../models/product";
+import { ProductsService } from "../../../services/products.service";
 
 @Component({
   selector: 'products-product-details',
@@ -11,8 +13,8 @@ import { Subscription } from 'rxjs';
 export class ProductDetailsComponent implements OnInit,OnDestroy {
 
   product!:Product;
-  currentProductId: string = '';
-  quantity: number =1;
+  currentProductId = '';
+  quantity =1;
   productOriginalPrice!:any;
   subsForProduct!:Subscription;
 

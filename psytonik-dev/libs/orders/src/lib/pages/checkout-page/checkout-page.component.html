@@ -1,0 +1,113 @@
+<div class="checkout-page">
+  <div>
+    <p-button
+      label="Click"
+      icon="pi pi-arrow-left"
+      (click)="backToShop()"
+    ></p-button>
+  </div>
+  <div class="p-grid checkout-form">
+    <div class='p-col-8'>
+            <form [formGroup]='form'>
+
+              <div class="p-fluid p-formgrid p-grid">
+
+                <div class="p-field p-col-4">
+                  <label for="name">Name</label>
+                  <input id="name" type="text" pInputText formControlName="name">
+                  <small *ngIf='checkoutForm.name.invalid && checkoutForm.name.touched' class='p-error'>Name is Required</small>
+                </div>
+
+                <div class="p-field p-col-4">
+                  <label for="email">Email</label>
+                  <input id="email" type="text" pInputText formControlName="email">
+                  <small *ngIf='checkoutForm.email.invalid && checkoutForm.email.touched' class='p-error'>
+                    <span *ngIf="checkoutForm.email.errors!.required">Email is Required</span>
+                    <span *ngIf="checkoutForm.email.errors!.email">Email is not Valid</span>
+                  </small>
+                </div>
+
+                <div class="p-field p-col-4">
+                  <label>Phone</label>
+                  <p-inputMask
+                    mask="+(999)999-999-999"
+                    formControlName="phone"
+                    placeholder="+(972)540-999-999"
+                  ></p-inputMask>
+                  <small
+                    *ngIf='checkoutForm.phone.invalid && checkoutForm.phone.touched'
+                    class='p-error'
+                  >Phone is Required</small>
+                </div>
+
+              </div>
+
+              <div class="p-fluid p-formgrid p-grid">
+
+                <div class="p-field p-col-4">
+                  <label for="street">Street</label><br>
+                  <input formControlName="street" id="street" type="text" pInputText/>
+                  <small
+                    *ngIf='checkoutForm.street.invalid && checkoutForm.street.touched'
+                    class='p-error'
+                  >Street is Required</small>
+                </div>
+
+                <div class="p-field p-col-4">
+                  <label for="apartment">Apartment</label><br>
+                  <input formControlName="apartment" id="apartment" type="text" pInputText/>
+                  <small
+                    *ngIf='checkoutForm.apartment.invalid && checkoutForm.apartment.touched'
+                    class='p-error'
+                  >Apartment is Required</small>
+                </div>
+
+                <div class="p-field p-col-4">
+                  <label for="zip">Zip</label><br>
+                  <input formControlName="zip" id="zip" type="text" pInputText/>
+                  <small *ngIf='checkoutForm.zip.invalid && checkoutForm.zip.touched' class='p-error'>Zip is Required</small>
+                </div>
+
+              </div>
+
+              <div class="p-fluid p-formgrid p-grid">
+
+                <div class="p-field p-col-4">
+                  <label for="city">City</label><br>
+                  <input formControlName="city" id="city" type="text" pInputText/>
+                  <small
+                    *ngIf='checkoutForm.city.invalid && checkoutForm.city.touched'
+                    class='p-error'
+                  >City is Required</small>
+                </div>
+
+                <div class="p-field p-col-4">
+                  <label>Country</label><br>
+                  <p-dropdown
+                    [options]="countries"
+                    formControlName="country"
+                    optionLabel="name"
+                    optionValue="id"
+                    [filter]="true"
+                    filterBy="name"
+                    [showClear]="true"
+                    placeholder="Select a Country"></p-dropdown>
+                  <small
+                    *ngIf='checkoutForm.country.invalid && checkoutForm.country.touched'
+                    class='p-error'>Country is Required</small>
+                </div>
+
+              </div>
+            </form>
+          </div>
+    <div class="p-col-4">
+      <orders-cart-summary></orders-cart-summary>
+      <div class="checkout-button">
+        <p-button
+          label="Place-Order"
+          [disabled]="form.invalid || submitted"
+          (onClick)="placeOrder()"></p-button>
+      </div>
+    </div>
+  </div>
+</div>

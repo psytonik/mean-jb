@@ -1,8 +1,8 @@
-import { Injectable } from '@angular/core';
-import {HttpClient} from '@angular/common/http'
-import { Observable } from 'rxjs';
-import { environment } from 'environments/environments';
-import {User} from '../models/user';
+import { Injectable } from "@angular/core";
+import { HttpClient } from "@angular/common/http";
+import { Observable } from "rxjs";
+import { environment } from "environments/environments";
+import { User } from "../models/user";
 import * as countriesList from "i18n-iso-countries";
 
 declare const require: any;
@@ -35,16 +35,19 @@ export class UsersService {
   deleteUser(id:string):Observable<void>{
     return this.httpClient.delete<void>(`${environment.apiURL}/users/${id}`)
   }
-  getCountry(countryKey: string): string {
-    return countriesList.getName(countryKey, 'en');
-  }
-  getCountries() {
-    return Object.entries(countriesList.getNames("en", {select: "official"})).map((entry)=>{
-      return {id:entry[0],name:entry[1]}
-    })
-  }
+
   getUsersCount():Observable<any>{
     return this.httpClient.get(`${environment.apiURL}/users/get/users-count`)
   }
 
+  getCountries() {
+    return Object.entries(countriesList.getNames("en", {select: "official"}))
+      .map((entry)=>{
+      return {id:entry[0],name:entry[1]}
+    })
+  }
+
+  getCountry(countryKey: string): string {
+    return countriesList.getName(countryKey, 'en');
+  }
 }

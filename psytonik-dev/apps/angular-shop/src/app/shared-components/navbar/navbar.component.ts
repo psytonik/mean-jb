@@ -1,16 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from "@angular/core";
 
 
 @Component({
-  selector: 'ngshop-nav',
+  selector: 'jbshop-nav',
   templateUrl: './navbar.component.html'
 })
-export class NavbarComponent implements OnInit {
+export class NavbarComponent {
 
-  constructor() { }
-
-  ngOnInit(): void {
-
-  }
-
-};
+}
