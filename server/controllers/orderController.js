@@ -126,15 +126,18 @@ const deleteOrder = async (req,res) => {
 
 const getSalesStatistic = async (req,res) => {
     try{
-        let totalSales = await Order.aggregate([
-            {$group:{ _id: null, totalSales:{$sum : '$totalPrice'}}}
-        ]);
-        if (!totalSales) {
-            return res.status(404).json({ success: false, message: 'No sales' })
+        let orders = await Order.find();
+        if (orders.length === 0) {
+            return res.status(200).json({ success: false, message: "No sales" });
+        } else {
+            let totalSales = await Order.aggregate([
+                { $group: { _id: null, totalSales: { $sum: "$totalPrice" } } }
+            ]);
+            return res.status(200).json({ totalSales: totalSales.pop().totalSales });
         }
-        return res.status(200).json({ totalSales: totalSales.pop().totalSales });
+
     } catch (err) {
-        console.error(err.message, "ERROR => getSalesStatistic");
+
         return res.status(500).json({
             error: err.message,
             success: false,
@@ -144,12 +147,15 @@ const getSalesStatistic = async (req,res) => {
 };
 
 const getCountOfOrders = async (req,res) => {
-    try{
-        const orderCount = await Order.countDocuments(count => count);
-        if(!orderCount){
-            return res.status(404).json({message: 'No Orders'});
+    try {
+        const orderCount = await Order.countDocuments(count => {
+            return count;
+        });
+        if (!orderCount) {
+            console.log(orderCount);
+            return res.status(200).json({ message: "No Orders", count: 0, success: false });
         }
-        return res.status(200).json({orderCount});
+        return res.status(200).json({ orderCount });
     } catch (err) {
         console.error(err.message, 'ERROR => getCountOfOrders');
         return res.status(500).json({
