@@ -186,7 +186,6 @@ const getCountOfProducts = async (req,res) => {
         }
         return res.status(200).json({productCount});
     } catch (err) {
-        console.error(err.message, 'ERROR => getCountOfProducts');
         return res.status(400).json({message: 'Can\'t get count of product', error: err.message});
     }
 };

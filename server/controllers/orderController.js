@@ -135,7 +135,6 @@ const getSalesStatistic = async (req,res) => {
             ]);
             return res.status(200).json({ totalSales: totalSales.pop().totalSales });
         }
-
     } catch (err) {
         return res.status(500).json({
             error: err.message,

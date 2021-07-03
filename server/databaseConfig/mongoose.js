@@ -7,9 +7,10 @@ const dbConnection = async () => {
                 useNewUrlParser: true,
                 useUnifiedTopology: true,
                 useFindAndModify: false,
-                dbName: "angularShop"
+                dbName: process.env.DB_NAME
             });
-        console.log(`MongoDb connected ${connect.connection.host}`);
+      console.log(`We use ${process.env.DB_NAME} database`);
+      console.log(`MongoDb connected ${connect.connection.host}`);
     }catch (error) {
         console.log(`Error: ${error.message}`);
         process.exit(1);
