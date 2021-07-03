@@ -14,8 +14,6 @@ export class AuthGuard implements CanActivate {
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
       const token = this.localStorageService.getToken();
-      console.log(route);
-      console.log(state);
       if(token){
         // atob it javascript native function to decode token
         const tokenDecode = JSON.parse(atob(token.split('.')[1]));

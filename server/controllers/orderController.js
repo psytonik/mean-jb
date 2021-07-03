@@ -105,25 +105,21 @@ const updateOrderStatus = async (req,res) => {
 
 const deleteOrder = async (req,res) => {
     try {
-        const { id } = req.params;
-        let orderToBeDeleted = await Order.findByIdAndRemove(id);
+        const orderToBeDeleted = await Order.findById(req.params.id);
         if (orderToBeDeleted) {
-
-            let orderItemIds = orderToBeDeleted.orderItems;
-            await Promise.all(
-                orderItemIds.map(async (orderItemId) => {
-                    await OrderItems.findByIdAndDelete({ _id: orderItemId });
-                })
-            );
-            return res.status(200).json({success: true, message: `Order successfully deleted`});
+            await orderToBeDeleted.orderitems.map(async orderItems => {
+                await OrderItems.findByIdAndDelete(orderItems);
+            });
+            await Order.findByIdAndDelete(orderToBeDeleted);
+            return res.status(200).json({ success: true, message: "Order with items successfully deleted" });
         } else {
-            return res.status(404).json({success: false, message: `Order not found`});
+            return res.status(404).json({ success: true, message: "Order not found" });
         }
-    } catch (error) {
-        return res.status(400).json({
-            error: error,
+    } catch (err) {
+        return res.status(500).json({
+            error: err.message,
             success: false,
-            message: 'Internal Server Error',
+            message: err.message
         });
     }
 };
@@ -138,6 +134,7 @@ const getSalesStatistic = async (req,res) => {
         }
         return res.status(200).json({ totalSales: totalSales.pop().totalSales });
     } catch (err) {
+        console.error(err.message, "ERROR => getSalesStatistic");
         return res.status(500).json({
             error: err.message,
             success: false,

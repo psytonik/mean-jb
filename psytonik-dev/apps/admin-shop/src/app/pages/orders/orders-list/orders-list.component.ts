@@ -41,13 +41,16 @@ export class OrdersListComponent implements OnInit,OnDestroy {
       header: 'Confirmation',
       icon: 'pi pi-exclamation-triangle',
       accept: () => {
-        this.messageService.add({severity:'info', summary:'Confirmed', detail:'You have accepted'});
-        this.deleteSub = this.ordersService.deleteOrder(id).subscribe(()=>{
-          this.orders = this.orders.filter((order)=>order.id !== id);
-          this.messageService.add({severity:'success', summary:'Successfully Deleted', detail:'Order Successfully Deleted'});
-        },(error)=>{
-          this.messageService.add({severity:'danger', summary:'Delete Failed', detail:error.message});
-        })
+        this.messageService.add(
+          { severity: "info", summary: "Confirmed", detail: "You have accepted" });
+        this.deleteSub = this.ordersService.deleteOrder(id).subscribe(() => {
+          this.orders = this.orders.filter((order: Order) => order.id !== id);
+          this.messageService.add(
+            { severity: "success", summary: "Successfully Deleted", detail: "Order Successfully Deleted" });
+          this._getOrders();
+        }, (error) => {
+          this.messageService.add({ severity: "danger", summary: "Delete Failed", detail: error.message });
+        });
       },
       reject: (type: any) => {
         switch(type) {
@@ -62,14 +65,15 @@ export class OrdersListComponent implements OnInit,OnDestroy {
     });
   }
 
-  onView(id:string){
+  onView(id: string) {
     this.router.navigateByUrl(`orders/${id}`).then(r => r);
   }
 
-  private _getOrders(){
-    this.getOrdersSub = this.ordersService.getOrders().subscribe((orders)=>{
-      this.orders = orders;
-    })
+  private _getOrders() {
+    this.getOrdersSub = this.ordersService.getOrders()
+      .subscribe((orders: Order[]) => {
+        this.orders = orders;
+      });
   }
 
 }
