@@ -128,7 +128,7 @@ const getSalesStatistic = async (req,res) => {
     try{
         let orders = await Order.find();
         if (orders.length === 0) {
-            return res.status(200).json({ success: false, message: "No sales", totalSales: 0 });
+            return res.status(202).json({ success: false, message: "No sales", totalSales: 0 });
         } else {
             let totalSales = await Order.aggregate([
                 { $group: { _id: null, totalSales: { $sum: "$totalPrice" } } }
@@ -150,7 +150,7 @@ const getCountOfOrders = async (req,res) => {
             return count;
         });
         if (orderCount.length === 0) {
-            return res.status(200).json({ message: "No Orders", count: 0, success: false });
+            return res.status(400).json({ message: "No Orders", count: 0, success: false });
         }
         return res.status(200).json({ orderCount });
     } catch (err) {

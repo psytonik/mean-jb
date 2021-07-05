@@ -16,7 +16,13 @@
             <div class="p-col-12">
               <div class="p-inputgroup">
                 <span class="p-inputgroup-addon"><i class="pi pi-user"></i></span>
-                <input type="email" id="email" pInputText placeholder="Email"  formControlName="email">
+                <input
+                  type="email"
+                  id="email"
+                  pInputText
+                  placeholder="Email"
+                  autocomplete
+                  formControlName="email">
               </div>
               <small *ngIf="loginForm.email.invalid && loginForm.email.touched" class="p-error">
                 <span *ngIf="loginForm.email.errors!.required">Email is Required</span>
@@ -25,9 +31,15 @@
             </div>
 
             <div class="p-col-12">
-              <div class="p-inputgroup">
+              <div class="p-inputgroup p-mr-5">
                 <span class="p-inputgroup-addon"><i class="pi pi-lock"></i></span>
-                <input type="password" pInputText pPassword placeholder="Password" formControlName="password" autocomplete>
+                <p-password
+                  placeholder="Password"
+                  [toggleMask]="true"
+                  formControlName="password"
+                  autocomplete
+                >
+                </p-password>
               </div>
               <small *ngIf="loginForm.password.invalid && loginForm.password.touched" class="p-error">
                 Password is required
@@ -36,11 +48,10 @@
             <div class="p-col-12">
               <button
                 pButton
-                pRipple
                 type="button"
                 label="Login"
                 class="p-button-outlined"
-                style="width: 100%"
+                style="width: 100%;"
                 [disabled]="form.invalid || submitted"
                 (click)="onSubmit()"></button>
             </div>

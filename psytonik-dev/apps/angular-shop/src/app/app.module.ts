@@ -8,8 +8,8 @@ import { ProductsModule } from "@psytonik-dev/products";
 import { UiModule } from "@psytonik-dev/ui";
 
 import { ToastModule } from "primeng/toast";
-
 import { MessageService } from "primeng/api";
+
 
 import { AppComponent } from "./app.component";
 import { HomePageComponent } from "./components/home-page/home-page.component";
@@ -17,11 +17,12 @@ import { HeaderComponent } from "./shared-components/header/header.component";
 import { FooterComponent } from "./shared-components/footer/footer.component";
 import { NavbarComponent } from "./shared-components/navbar/navbar.component";
 import { MessagesComponent } from "./components/messages/messages.component";
+import { LoginComponent } from "@psytonik-dev/users";
 
 const routes: Routes = [
   { path:'', component: HomePageComponent },
-  {path:'**',redirectTo:'/'}
-
+  { path:'login', component: LoginComponent },
+  { path:'**', redirectTo:'/' }
 ];
 
 @NgModule({

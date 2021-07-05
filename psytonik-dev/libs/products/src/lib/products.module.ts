@@ -22,8 +22,8 @@ import { InputNumberModule } from "primeng/inputnumber";
 
 const routes:Routes = [
   {path:'products', component:ProductsListComponent},
-  {path: 'category/:categoryId',component: ProductsListComponent},
-  {path: 'products/:id',component: ProductDetailsComponent}
+  {path: 'products/:id',component: ProductDetailsComponent},
+  {path: 'category/:categoryId',component: ProductsListComponent}
 ];
 
 @NgModule({

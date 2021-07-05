@@ -181,7 +181,7 @@ const uploadMultipleImages = async (req,res) => {
 const getCountOfProducts = async (req,res) => {
     try{
         const productCount = await Product.countDocuments((count)=> count);
-        if(!productCount){
+        if(productCount.length === 0){
             return res.status(400).json({message: 'Can\'t count products'});
         }
         return res.status(200).json({productCount});
