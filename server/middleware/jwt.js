@@ -19,11 +19,11 @@ const authJwtMiddleware = () => {
 	}).unless({
 		path:[
 			`${api}/users/login`,
-			`${api}/users`,
+			`${api}/users/register`,
 			{url: /\/public\/uploads(.*)/, methods:['GET','OPTIONS']},
 			{url: /\/api\/v1\/products(.*)/, methods:['GET','OPTIONS']},
 			{url: /\/api\/v1\/category(.*)/, methods:['GET','OPTIONS']},
-			{url: /\/api\/v1\/orders(.*)/, methods:['GET','OPTIONS','POST']},
+			{url: /\/api\/v1\/orders(.*)/, methods:['POST','OPTIONS']},
 
 			// this line allow use all api routes without auth for developing purpose only;
 			// {url:/(.*)/}
