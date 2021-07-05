@@ -15,9 +15,7 @@
     "bcryptjs": "^2.4.3",
     "express": "^4.17.1",
     "helmet": "^4.6.0",
-    "mongoose": "^5.12.14"
-  },
-  "devDependencies": {
+    "mongoose": "^5.12.14",
     "cors": "^2.8.5",
     "dotenv": "^10.0.0",
     "express-jwt": "^6.0.0",
@@ -25,5 +23,7 @@
     "morgan": "^1.10.0",
     "multer": "^1.4.2",
     "nodemon": "^2.0.7"
+  },
+  "devDependencies": {
   }
 }
