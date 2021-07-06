@@ -17,7 +17,6 @@ import { TableModule } from "primeng/table";
 import { TagModule } from "primeng/tag";
 import { ToastModule } from "primeng/toast";
 import { ToolbarModule } from "primeng/toolbar";
-import {SidebarModule} from 'primeng/sidebar';
 
 @NgModule({
   imports:[
@@ -37,8 +36,7 @@ import {SidebarModule} from 'primeng/sidebar';
     TagModule,
     PasswordModule,
     InputMaskModule,
-    FieldsetModule,
-    SidebarModule
+    FieldsetModule
   ],
   exports:[
     ToolbarModule,
@@ -57,8 +55,7 @@ import {SidebarModule} from 'primeng/sidebar';
     TagModule,
     PasswordModule,
     InputMaskModule,
-    FieldsetModule,
-    SidebarModule
+    FieldsetModule
   ],
   declarations:[],
   providers:[]

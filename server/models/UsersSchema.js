@@ -4,12 +4,12 @@ const UsersSchema = new mongoose.Schema({
     name:{type:String,required:true},
     email:{type:String,required:true},
     passwordHash:{type:String,required:true},
-    street:{type:String,required:true, default: ''},
-    apartment:{type:String,required:true, default: ''},
-    city:{type:String,required:true, default: ''},
-    zip:{type:String,required:true, default: ''},
+    street:{type:String, default: ''},
+    apartment:{type:String, default: ''},
+    city:{type:String, default: ''},
+    zip:{type:String, default: ''},
     country:{type:String, default: ''},
-    phone:{type:String,required:true, default: ''},
+    phone:{type:String, default: ''},
     isAdmin: {type:Boolean,default: false},
 })
 

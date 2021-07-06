@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators} from "@angular/forms";
 import {User} from "../../models/user";
 import {AuthService} from "../../services/auth.service";
+import {MessageService} from "primeng/api";
 
 @Component({
   selector: 'users-registration',
@@ -13,6 +14,7 @@ export class RegistrationComponent implements OnInit {
   submittedForm = false;
   constructor(
     private authService: AuthService,
+    private messageService: MessageService
   ) { }
 
   ngOnInit(): void {
@@ -35,6 +37,13 @@ export class RegistrationComponent implements OnInit {
     })
       .subscribe((done:User)=>{
         console.log(done);
+        this.messageService.add(
+          {severity:'success', summary:'Success', detail:`You Are successfully registered to our shop`},
+        );
+      },(err)=>{
+        this.messageService.add(
+          {severity:'error', summary:'Error', detail:err.error.message}
+        );
       })
   }
 

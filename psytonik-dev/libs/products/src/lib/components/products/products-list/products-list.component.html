@@ -9,7 +9,7 @@
           inputId="category.id"
           (onChange)="categoryFilter()"
         ></p-checkbox>
-        <label for="{{ category?.id }}">{{category.name}}</label>
+        <label>{{category.name}}</label>
       </div>
     </div>
     <div [ngClass]="{'p-col-9': !isCategoryPage, 'p-col-12': isCategoryPage}">
