@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {UsersService} from "../../services/users.service";
 import { FormControl, FormGroup, Validators} from "@angular/forms";
+import {User} from "../../models/user";
 
 @Component({
   selector: 'users-registration',
@@ -27,6 +28,14 @@ export class RegistrationComponent implements OnInit {
   }
   onSubmit(){
     console.log('hit')
+    this.usersService.createUser({
+      name:this.registrationForm.name.value,
+      email:this.registrationForm.email.value,
+      password:this.registrationForm.password.value
+    })
+      .subscribe((done:User)=>{
+        console.log(done);
+      })
   }
 
   get registrationForm () {

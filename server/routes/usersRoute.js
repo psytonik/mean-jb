@@ -4,6 +4,7 @@ const {createNewUser, getUsers,getUserById,updateUser,
 
 const router = express.Router();
 
+/// admin route
 router.route('/')
     .get(getUsers)
     .post(createNewUser);
@@ -13,10 +14,14 @@ router.route('/:id')
     .put(updateUser)
 	.delete(deleteUser);
 
-
+/// open route
 router.route('/login')
     .post(loginUser);
 
+router.route('/register')
+	.post(createNewUser);
+
+/// admin route
 router.route('/get/users-count')
 	.get(getCountOfUsers);
 

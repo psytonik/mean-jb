@@ -6,6 +6,7 @@ import { AuthService } from "@psytonik-dev/users";
   templateUrl: './sidebar.component.html'
 })
 export class SidebarComponent {
+  visibleSidebar: any;
 
   constructor(private authService: AuthService) { }
 
