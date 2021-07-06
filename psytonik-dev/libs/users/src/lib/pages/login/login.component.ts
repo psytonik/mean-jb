@@ -44,7 +44,7 @@ export class LoginComponent implements OnInit,OnDestroy {
       return
     }
 
-    this.authSub =this.authService.login(this.loginForm.email.value,this.loginForm.password.value)
+    this.authSub = this.authService.login(this.loginForm.email.value,this.loginForm.password.value)
       .subscribe((user)=>{
         if(user){
           this.localStorage.setToken(user.token);

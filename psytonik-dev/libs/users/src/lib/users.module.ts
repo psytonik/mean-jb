@@ -12,6 +12,7 @@ import { MessageService } from "primeng/api";
 
 import { AuthService } from "./services/auth.service";
 import { LocalStorageService } from "./services/local-storage.service";
+import { RegistrationComponent } from './pages/registration/registration.component';
 
 const UX_MODULES = [
   InputTextModule,
@@ -25,7 +26,8 @@ const UX_MODULES = [
 @NgModule({
   imports: [CommonModule,ReactiveFormsModule,FormsModule,UX_MODULES],
   declarations: [
-    LoginComponent
+    LoginComponent,
+    RegistrationComponent
   ],
   providers:[AuthService,MessageService,LocalStorageService],
   exports:[]

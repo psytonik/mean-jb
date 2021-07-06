@@ -17,11 +17,12 @@ import { HeaderComponent } from "./shared-components/header/header.component";
 import { FooterComponent } from "./shared-components/footer/footer.component";
 import { NavbarComponent } from "./shared-components/navbar/navbar.component";
 import { MessagesComponent } from "./components/messages/messages.component";
-import { LoginComponent } from "@psytonik-dev/users";
+import { LoginComponent, RegistrationComponent } from "@psytonik-dev/users";
 
 const routes: Routes = [
   { path:'', component: HomePageComponent },
   { path:'login', component: LoginComponent },
+  { path: 'registration', component: RegistrationComponent},
   { path:'**', redirectTo:'/' }
 ];
 
