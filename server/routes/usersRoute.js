@@ -18,7 +18,7 @@ router.route('/:id')
 router.route('/login')
     .post(loginUser);
 
-router.route('/register')
+router.route('/registration')
 	.post(createNewUser);
 
 /// admin route

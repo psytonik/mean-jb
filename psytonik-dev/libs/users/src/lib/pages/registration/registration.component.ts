@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import {UsersService} from "../../services/users.service";
 import { FormControl, FormGroup, Validators} from "@angular/forms";
 import {User} from "../../models/user";
+import {AuthService} from "../../services/auth.service";
 
 @Component({
   selector: 'users-registration',
@@ -12,7 +12,7 @@ export class RegistrationComponent implements OnInit {
   form!: FormGroup;
   submittedForm = false;
   constructor(
-    private usersService: UsersService,
+    private authService: AuthService,
   ) { }
 
   ngOnInit(): void {
@@ -28,7 +28,7 @@ export class RegistrationComponent implements OnInit {
   }
   onSubmit(){
     console.log('hit')
-    this.usersService.createUser({
+    this.authService.registration({
       name:this.registrationForm.name.value,
       email:this.registrationForm.email.value,
       password:this.registrationForm.password.value
