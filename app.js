@@ -8,8 +8,12 @@ const jwtErrorHandler = require('./server/middleware/jwtErrorHandler.js');
 const app = express();
 
 /// CROSS-ORIGIN
-app.use(cors());
-app.options('*',cors());
+app.use(cors(),(test)=>{
+    console.log('use', test)
+});
+app.options('*',cors(),(test2)=>{
+    console.log('options', test2)
+});
 
 // ENVIRONMENTS
 const api = process.env.API_URL;

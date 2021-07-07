@@ -36,9 +36,8 @@ export class RegistrationComponent implements OnInit {
       password:this.registrationForm.password.value
     })
       .subscribe((done:User)=>{
-        console.log(done);
         this.messageService.add(
-          {severity:'success', summary:'Success', detail:`You Are successfully registered to our shop`},
+          {severity:'success', summary:'Success', detail:`${done.name} You Are successfully registered to our shop`},
         );
       },(err)=>{
         this.messageService.add(
