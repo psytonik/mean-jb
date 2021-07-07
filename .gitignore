@@ -3,8 +3,7 @@ node_modules
 /.idea
 .idea
 .env
-/psytonik-dev/
-psytonik-dev/
+
 /psytonik-dev/node_modules
 psytonik-dev/node_modules
 /psytonik-dev/.vscode

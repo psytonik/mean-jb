@@ -1,7 +1,6 @@
 import { NgModule } from "@angular/core";
 import { BrowserModule } from "@angular/platform-browser";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
-import { RouterModule, Routes } from "@angular/router";
 
 import { OrderModule } from "@psytonik-dev/orders";
 import { ProductsModule } from "@psytonik-dev/products";
@@ -17,14 +16,11 @@ import { HeaderComponent } from "./shared-components/header/header.component";
 import { FooterComponent } from "./shared-components/footer/footer.component";
 import { NavbarComponent } from "./shared-components/navbar/navbar.component";
 import { MessagesComponent } from "./components/messages/messages.component";
-import { LoginComponent, RegistrationComponent } from "@psytonik-dev/users";
 
-const routes: Routes = [
-  { path:'', component: HomePageComponent },
-  { path:'login', component: LoginComponent },
-  { path: 'registration', component: RegistrationComponent},
-  { path:'**', redirectTo:'/' }
-];
+import {ShopRoutesModule} from "./shop-routes.module";
+
+
+
 
 @NgModule({
   declarations: [
@@ -38,15 +34,15 @@ const routes: Routes = [
 
   imports: [
     BrowserModule,
-    RouterModule.forRoot(routes),
     UiModule,
     BrowserAnimationsModule,
     ProductsModule,
     OrderModule,
-    ToastModule
+    ToastModule,
+    ShopRoutesModule
   ],
-
+  exports:[],
   providers: [MessageService],
-  bootstrap: [AppComponent],
+  bootstrap: [AppComponent]
 })
 export class AppModule {}

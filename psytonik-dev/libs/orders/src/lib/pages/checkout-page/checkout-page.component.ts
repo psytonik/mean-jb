@@ -9,7 +9,6 @@ import { Country, Order } from "../../models/order";
 import { CartServiceService } from "../../services/cart-service.service";
 import { OrdersService } from "../../services/orders.service";
 
-
 @Component({
   selector: 'orders-checkout-page',
   templateUrl: './checkout-page.component.html'

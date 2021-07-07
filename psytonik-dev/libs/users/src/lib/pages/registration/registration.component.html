@@ -7,17 +7,27 @@
       <form [formGroup]="form">
         <div class="p-fluid">
           <div class="p-field">
-          <label for="firstname">Name</label>
-          <input id="firstname" type="text" pInputText formControlName="name">
-        </div>
+              <label for="firstname">Name</label>
+              <input id="firstname" type="text" pInputText formControlName="name">
+            <small *ngIf="registrationForm.name.invalid && registrationForm.name.touched" class="p-error">
+              <span *ngIf="registrationForm.name.errors!.required">Name is Required</span>
+            </small>
+          </div>
           <div class="p-field">
-          <label for="email">Email</label>
-          <input id="email" type="email" pInputText formControlName="email">
-        </div>
+            <label for="email">Email</label>
+            <input id="email" type="email" pInputText formControlName="email">
+            <small *ngIf="registrationForm.email.invalid && registrationForm.email.touched" class="p-error">
+              <span *ngIf="registrationForm.email.errors!.required">Email is Required</span>
+              <span *ngIf="registrationForm.email.errors!.email">Email is not Valid</span>
+            </small>
+          </div>
           <div class="p-field">
-          <label for="email">Password</label>
-          <p-password [toggleMask]="true" formControlName="password"></p-password>
-        </div>
+            <label for="email">Password</label>
+            <p-password [toggleMask]="true" formControlName="password"></p-password>
+            <small *ngIf="registrationForm.password.invalid && registrationForm.password.touched" class="p-error">
+              Password is required
+            </small>
+          </div>
         </div>
           <div class="p-field">
             <button

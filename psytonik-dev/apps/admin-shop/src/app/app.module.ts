@@ -51,7 +51,6 @@ import { OrderDetailsComponent } from './pages/orders/order-details/order-detail
     UsersModule
   ],
   providers: [CategoriesService,MessageService,ConfirmationService,ProductsService,UsersService,OrdersService,
-
     {provide:HTTP_INTERCEPTORS, useClass:JwtInterceptor,multi:true}
   ],
   bootstrap: [AppComponent],

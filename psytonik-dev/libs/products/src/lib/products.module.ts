@@ -1,7 +1,7 @@
 import { NgModule } from "@angular/core";
 import { CommonModule } from "@angular/common";
 import { HttpClientModule } from "@angular/common/http";
-import { RouterModule, Routes } from "@angular/router";
+import { RouterModule } from "@angular/router";
 import { FormsModule } from "@angular/forms";
 
 import { OrderModule } from "@psytonik-dev/orders";
@@ -20,17 +20,12 @@ import { GalleriaModule } from "primeng/galleria";
 import { RatingModule } from "primeng/rating";
 import { InputNumberModule } from "primeng/inputnumber";
 
-const routes:Routes = [
-  {path:'products', component:ProductsListComponent},
-  {path: 'products/:id',component: ProductDetailsComponent},
-  {path: 'category/:categoryId',component: ProductsListComponent}
-];
 
 @NgModule({
   imports: [
     CommonModule,
     HttpClientModule,
-    RouterModule.forChild(routes),
+    RouterModule,
     ButtonModule,
     CheckboxModule,
     FormsModule,

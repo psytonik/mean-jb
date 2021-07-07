@@ -55,6 +55,17 @@
                 [disabled]="form.invalid || submitted"
                 (click)="onSubmit()"></button>
             </div>
+            <div class="p-col-12">
+              <p>If you don't have account please fill registration form</p>
+              <button
+                pButton
+                type="button"
+                label="Registration"
+                class="p-button-outlined"
+                style="width: 100%;"
+                routerLink="/registration"
+              ></button>
+            </div>
           </div>
         </form>
       </div>

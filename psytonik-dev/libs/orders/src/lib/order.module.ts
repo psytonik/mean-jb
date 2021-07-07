@@ -1,6 +1,6 @@
 import { NgModule } from "@angular/core";
 import { CommonModule } from "@angular/common";
-import { Route, RouterModule } from "@angular/router";
+import { RouterModule } from "@angular/router";
 
 import { CartServiceService } from "./services/cart-service.service";
 
@@ -19,16 +19,11 @@ import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { CheckoutPageComponent } from "./pages/checkout-page/checkout-page.component";
 import { ThankYouPageComponent } from "./pages/thank-you-page/thank-you-page.component";
 
-const ordersRoutes: Route[] = [
-  {path:'cart',component:CartPageComponent},
-  {path:'checkout',component:CheckoutPageComponent},
-  {path:'success',component:ThankYouPageComponent}
-];
 
 @NgModule({
   imports: [
     CommonModule,
-    RouterModule.forChild(ordersRoutes),
+    RouterModule,
     FormsModule,
     ReactiveFormsModule,
     BadgeModule,

@@ -52,7 +52,6 @@ export class LoginComponent implements OnInit,OnDestroy {
         this.messageService.add(
           {severity:'success', summary:'Success', detail:`You Are Logged In Successfully`},
         );
-          this.form.reset();
           timer(2000).toPromise().then(()=>{
             this.submitted = false;
             this.form.reset();
