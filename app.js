@@ -8,12 +8,8 @@ const jwtErrorHandler = require('./server/middleware/jwtErrorHandler.js');
 const app = express();
 
 /// CROSS-ORIGIN
-app.use(cors(),(test)=>{
-    console.log('use', test)
-});
-app.options('*',cors(),(test2)=>{
-    console.log('options', test2)
-});
+app.use(cors());
+app.options('*',cors());
 
 // ENVIRONMENTS
 const api = process.env.API_URL;
@@ -36,10 +32,10 @@ app.use(helmet());
 
 
 /// ROUTES
-app.use(`${api}/products`,productRoutes);
-app.use(`${api}/users`,usersRoutes);
-app.use(`${api}/orders`,ordersRoutes);
-app.use(`${api}/category`,categoriesRoutes);
+app.use(`${api}/products`, productRoutes);
+app.use(`${api}/users`, usersRoutes);
+app.use(`${api}/orders`, ordersRoutes);
+app.use(`${api}/category`, categoriesRoutes);
 
 /// DATABASE CONNECTION
 const dbConnection = require('./server/databaseConfig/mongoose');
