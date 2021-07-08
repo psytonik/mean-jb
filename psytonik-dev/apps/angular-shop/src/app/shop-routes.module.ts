@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import {RouterModule, Routes} from "@angular/router";
 import {HomePageComponent} from "./components/home-page/home-page.component";
 
-import {AuthGuard, LoginComponent, RegistrationComponent} from "@psytonik-dev/users";
+import { LoginComponent, RegistrationComponent, ShopGuardGuard } from "@psytonik-dev/users";
 import {ProductsListComponent} from "@psytonik-dev/products";
 import {ProductDetailsComponent} from "@psytonik-dev/products";
 import {CartPageComponent} from "@psytonik-dev/orders";
@@ -18,7 +18,7 @@ const routes: Routes = [
   { path: '', component:HomePageComponent},
   { path: 'cart', component: CartPageComponent},
   { path: 'checkout', component:CheckoutPageComponent,
-    canActivate: [AuthGuard],
+    canActivate: [ShopGuardGuard],
     children: [{ path: 'success', component:ThankYouPageComponent},
     ]},
   { path: '**',
