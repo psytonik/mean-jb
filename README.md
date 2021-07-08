@@ -23,3 +23,6 @@ POST https://jbshopapi.herokuapp.com/api/v1/users/login,
 
 user-name: jbadmin@admin.com
 password: jbAdmin1234
+
+https://psytonik.github.io/admin-shop/ <= admin panel
+https://psytonik.github.io/angular-shop/ < shop
